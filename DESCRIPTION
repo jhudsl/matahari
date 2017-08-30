@@ -1,11 +1,19 @@
 Package: matahari
 Type: Package
-Title: What the Package Does (Title Case)
-Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Title: Spy on Your R Session
+Version: 0.0.0.9006
+Authors@R: person("Sean", "Kross", email = "sean@seankross.com", role = c("aut", "cre"))
+Description: Create a tidy log of everything you type into the R console.
+Depends:
+    R (>= 3.1.0)
+Imports:
+    rstudioapi,
+    tibble
+Suggests:
+    testthat
+License: MIT + file LICENSE
+URL: http://github.com/jhudsl/matahari
 Encoding: UTF-8
 LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 6.0.1
