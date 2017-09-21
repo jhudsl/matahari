@@ -32,7 +32,8 @@ dance_start <- function(expr = TRUE, value = TRUE, path = TRUE, contents = TRUE,
                         value = list(ie(value, value_, NA)),
                         path = list(ie(path, ed$path, NA)),
                         contents = list(ie(contents, ed$contents, NA)),
-                        selection = ie(selection, ed$selection, NA)),
+                        selection = ie(selection, ed$selection, NA),
+                        dt = Sys.time()),
              envir = get_env())
     } else {
       d <- get(".dance", envir = .GlobalEnv)
@@ -41,7 +42,8 @@ dance_start <- function(expr = TRUE, value = TRUE, path = TRUE, contents = TRUE,
                                value = list(ie(value, value_, NA)),
                                path = list(ie(path, ed$path, NA)),
                                contents = list(ie(contents, ed$contents, NA)),
-                               selection = ie(selection, ed$selection, NA)
+                               selection = ie(selection, ed$selection, NA),
+                               dt = Sys.time()
                                ), envir = get_env())
     }
     TRUE
@@ -79,6 +81,16 @@ dance_tbl <- function() {
   result <- tryCatch(get(".dance", envir = .GlobalEnv),
            error = function(e){NULL})
   result
+}
+
+#' Save the log as an rds file.
+#'
+#' @param path The path to the rds file.
+#' @importFrom readr write_rds
+#' @export
+dance_save <- function(path) {
+  tbl <- dance_tbl()
+  write_rds(tbl, path)
 }
 
 ie <- function(cond, t, f){
