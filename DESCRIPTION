@@ -1,7 +1,7 @@
 Package: matahari
 Type: Package
 Title: Spy on Your R Session
-Version: 0.0.0.9007
+Version: 0.0.0.9008
 Authors@R: person("Sean", "Kross", email = "sean@seankross.com", role = c("aut", "cre"))
 Description: Create a tidy log of everything you type into the R console.
 Depends:

@@ -20,7 +20,10 @@
 dance_start <- function(expr = TRUE, value = TRUE, path = TRUE, contents = TRUE,
                         selection = TRUE) {
   cb <- function(expr_, value_, ok, visible){
-    if(isAvailable()){
+    editorIsOpen <- tryCatch({getSourceEditorContext();TRUE},
+                             error = function(e) FALSE)
+
+    if(editorIsOpen && isAvailable()){
       ed <- getSourceEditorContext()
     } else {
       ed <- list(path = NA, contents = NA, selection = NA)
