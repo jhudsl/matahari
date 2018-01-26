@@ -1,7 +1,7 @@
 Package: matahari
 Type: Package
 Title: Spy on Your R Session
-Version: 0.0.0.9008
+Version: 0.0.0.9009
 Authors@R: person("Sean", "Kross", email = "sean@seankross.com", role = c("aut", "cre"))
 Description: Create a tidy log of everything you type into the R console.
 Depends:
@@ -9,7 +9,9 @@ Depends:
 Imports:
     rstudioapi,
     tibble,
-    readr
+    readr,
+    jsonlite,
+    clipr
 Suggests:
     testthat
 License: MIT + file LICENSE

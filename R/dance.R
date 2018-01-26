@@ -104,6 +104,32 @@ ie <- function(cond, t, f){
   }
 }
 
+#' Copy the log to your clipboard.
+#'
+#' @param ... Developer options.
+#' @export
+dance_report <- function(...) {
+  ellipsis <- list(...)
+
+  if(!is.null(ellipsis$input)) {
+    base64_to_df(ellipsis$input)
+  } else {
+    copy_base64()
+  }
+}
+
+#' @importFrom jsonlite base64_enc
+#' @importFrom clipr write_clip
+copy_base64 <- function() {
+  enc_string <- base64_enc(serialize(dance_tbl(), NULL))
+  write_clip(enc_string)
+}
+
+#' @importFrom jsonlite base64_dec
+base64_to_df <- function(string) {
+  unserialize(base64_dec(string))
+}
+
 get_env <- function(){
   .GlobalEnv
 }
