@@ -17,8 +17,8 @@
 #' @importFrom rstudioapi isAvailable getSourceEditorContext
 #' @importFrom tibble data_frame add_row
 #' @export
-dance_start <- function(expr = TRUE, value = TRUE, path = TRUE, contents = TRUE,
-                        selection = TRUE) {
+dance_start <- function(expr = TRUE, value = FALSE, path = FALSE, contents = FALSE,
+                        selection = FALSE) {
   cb <- function(expr_, value_, ok, visible){
     editorIsOpen <- tryCatch({getSourceEditorContext();TRUE},
                              error = function(e) FALSE)
@@ -30,13 +30,21 @@ dance_start <- function(expr = TRUE, value = TRUE, path = TRUE, contents = TRUE,
     }
 
     if(!(".dance" %in% ls(all.names = TRUE, envir = .GlobalEnv))) {
+      setup_tbl <- data_frame(expr = list(quote(sessionInfo())),
+                              value = list(sessionInfo()),
+                              path = list(ie(path, ed$path, NA)),
+                              contents = list(ie(contents, ed$contents, NA)),
+                              selection = ie(selection, ed$selection, NA),
+                              dt = Sys.time())
+      setup_tbl <- add_row(setup_tbl,
+                           expr = list(ie(expr, expr_, NA)),
+                           value = list(ie(value, value_, NA)),
+                           path = list(ie(path, ed$path, NA)),
+                           contents = list(ie(contents, ed$contents, NA)),
+                           selection = ie(selection, ed$selection, NA),
+                           dt = Sys.time())
       assign(".dance",
-             data_frame(expr = list(ie(expr, expr_, NA)),
-                        value = list(ie(value, value_, NA)),
-                        path = list(ie(path, ed$path, NA)),
-                        contents = list(ie(contents, ed$contents, NA)),
-                        selection = ie(selection, ed$selection, NA),
-                        dt = Sys.time()),
+             setup_tbl,
              envir = get_env())
     } else {
       d <- get(".dance", envir = .GlobalEnv)
@@ -61,6 +69,7 @@ dance_start <- function(expr = TRUE, value = TRUE, path = TRUE, contents = TRUE,
 #' @export
 #' @return \code{TRUE} if logging was taking place, otherwise \code{FALSE} (invisibly).
 dance_stop <- function() {
+  add_session_info()
   invisible(removeTaskCallback("mh"))
 }
 
@@ -92,6 +101,8 @@ dance_tbl <- function() {
 #' @importFrom readr write_rds
 #' @export
 dance_save <- function(path) {
+  add_session_info()
+
   tbl <- dance_tbl()
   write_rds(tbl, path)
 }
@@ -109,6 +120,8 @@ ie <- function(cond, t, f){
 #' @param ... Developer options.
 #' @export
 dance_report <- function(...) {
+  add_session_info()
+
   ellipsis <- list(...)
 
   if(!is.null(ellipsis$input)) {
@@ -132,4 +145,22 @@ base64_to_df <- function(string) {
 
 get_env <- function(){
   .GlobalEnv
+}
+
+there_is_a_dance <- function() {
+  ".dance" %in% ls(all.names = TRUE, envir = .GlobalEnv)
+}
+
+add_session_info <- function() {
+  if (there_is_a_dance()) {
+    d <- get(".dance", envir = .GlobalEnv)
+    assign(".dance", add_row(d,
+                             expr = list(quote(sessionInfo())),
+                             value = list(sessionInfo()),
+                             path = list(NA),
+                             contents = list(NA),
+                             selection = list(NA),
+                             dt = Sys.time()
+    ), envir = get_env())
+  }
 }
