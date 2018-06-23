@@ -20,9 +20,10 @@ devtools::install_github("jhudsl/matahari")
 ```R
 library(matahari)
 library(tidyverse)
+library(knitr)
 
 # Start logging your commands
-dance_start()
+dance_start(value = TRUE)
 
 4 + 4
 "wow!"
@@ -34,16 +35,27 @@ dance_stop()
 # Look at your log as a tibble
 dance_tbl()
 
-## # A tibble: 4 x 5
-##         expr     value      path  contents selection
-##       <list>    <list>    <list>    <list>     <lgl>
-## 1 <language> <int [1]> <lgl [1]> <lgl [1]>        NA
-## 2 <language> <dbl [1]> <lgl [1]> <lgl [1]>        NA
-## 3  <chr [1]> <chr [1]> <lgl [1]> <lgl [1]>        NA
-## 4 <language> <dbl [1]> <lgl [1]> <lgl [1]>        NA
+## # A tibble: 6 x 6
+##   expr       value             path      contents  selection dt                 
+##   <list>     <list>            <list>    <list>    <list>    <dttm>             
+## 1 <language> <S3: sessionInfo> <lgl [1]> <lgl [1]> <lgl [1]> 2018-06-23 15:26:06
+## 2 <language> <int [1]>         <lgl [1]> <lgl [1]> <lgl [1]> 2018-06-23 15:26:06
+## 3 <language> <dbl [1]>         <lgl [1]> <lgl [1]> <lgl [1]> 2018-06-23 15:26:07
+## 4 <chr [1]>  <chr [1]>         <lgl [1]> <lgl [1]> <lgl [1]> 2018-06-23 15:26:08
+## 5 <language> <dbl [1]>         <lgl [1]> <lgl [1]> <lgl [1]> 2018-06-23 15:26:08
+## 6 <language> <S3: sessionInfo> <lgl [1]> <lgl [1]> <lgl [1]> 2018-06-23 15:26:09
 
 # Do data science
 dance_tbl() %>%
+  slice(2:(n() - 1)) %>%
   select(expr, value) %>%
-  mutate(class = map_chr(expr, class))
+  mutate(class = map_chr(expr, class)) %>%
+  kable()
+
+## |expr                      |value |class     |
+## |:-------------------------|:-----|:---------|
+## |dance_start(value = TRUE) |1     |call      |
+## |4 + 4                     |8     |call      |
+## |wow!                      |wow!  |character |
+## |mean(1:10)                |5.5   |call      |
 ```
