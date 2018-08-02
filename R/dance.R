@@ -126,18 +126,16 @@ dance_report <- function(...) {
 
   if(!is.null(ellipsis$input)) {
     base64_to_df(ellipsis$input)
-  } else if(!is.null(ellipsis$clip)) {
-    copy_base64(ellipsis$clip)
   } else {
-    copy_base64()
+    copy_base64(clip = ellipsis$clip)
   }
 }
 
 #' @importFrom jsonlite base64_enc
 #' @importFrom clipr write_clip
-copy_base64 <- function(clip = TRUE) {
+copy_base64 <- function(clip) {
   enc_string <- base64_enc(serialize(dance_tbl(), NULL))
-  if (clip) {
+  if (!is.null(clip) && clip) {
     write_clip(enc_string)
   } else {
     enc_string
