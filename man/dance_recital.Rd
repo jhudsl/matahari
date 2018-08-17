@@ -4,10 +4,12 @@
 \alias{dance_recital}
 \title{Create a matahari-esque data frame from a file.}
 \usage{
-dance_recital(code)
+dance_recital(code, evaluate = TRUE)
 }
 \arguments{
 \item{code}{A string or the path to a file containing R code.}
+
+\item{evaluate}{Logical, indicating whether to evaluate the code, default is \code{TRUE}}
 }
 \description{
 Create a matahari-esque data frame from a file.
