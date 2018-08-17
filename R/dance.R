@@ -134,13 +134,13 @@ dance_report <- function(...) {
 #' Create a matahari-esque data frame from a file.
 #'
 #' @param code A string or the path to a file containing R code.
-#' @param eval Logical, indicating whether to evaluate the code, default is `TRUE`                     
+#' @param evaluate Logical, indicating whether to evaluate the code, default is `TRUE`
 #' @importFrom readr read_file
 #' @importFrom rlang is_scalar_character abort parse_exprs .data
 #' @importFrom dplyr data_frame "%>%" bind_cols mutate as_data_frame
 #' @importFrom purrr map safely quietly transpose
 #' @export
-dance_recital <- function(code, eval = TRUE) {
+dance_recital <- function(code, evaluate = TRUE) {
   if (file.exists(code)) {
     code <- read_file(code)
   }
@@ -148,9 +148,14 @@ dance_recital <- function(code, eval = TRUE) {
   if(!is_scalar_character(code)) {
     abort("`code` must be a file or a string containing R code")
   }
-  
-  if (!eval) { 
-    return(data_frame(expr = parse_exprs(code)))
+
+  if (!evaluate) {
+    return(data_frame(expr = parse_exprs(code),
+                      result = list(NULL),
+                      error = list(NULL),
+                      output = list(NULL),
+                      warnings = list(NULL),
+                      message = list(NULL)))
   }
 
   e <- new.env()
