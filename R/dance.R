@@ -131,6 +131,38 @@ dance_report <- function(...) {
   }
 }
 
+#' Create a matahari-esque data frame from a file.
+#'
+#' @param code A string or the path to a file containing R code.
+#' @importFrom readr read_file
+#' @importFrom rlang is_scalar_character abort parse_exprs .data
+#' @importFrom dplyr data_frame "%>%" bind_cols mutate as_data_frame
+#' @importFrom purrr map safely quietly transpose
+#' @export
+dance_recital <- function(code) {
+  if (file.exists(code)) {
+    code <- read_file(code)
+  }
+
+  if(!is_scalar_character(code)) {
+    abort("`code` must be a file or a string containing R code")
+  }
+
+  e <- new.env()
+
+  data_frame(expr = parse_exprs(code)) %>%
+    bind_cols(
+      parse_exprs(code) %>%
+        map(~safely(quietly(eval))(.x, envir = e)) %>%
+        transpose() %>%
+        as_data_frame() %>%
+        mutate(output = map(.data$result, ~ .x$output)) %>%
+        mutate(warnings = map(.data$result, ~ .x$warnings)) %>%
+        mutate(messages = map(.data$result, ~ .x$messages)) %>%
+        mutate(result = map(.data$result, ~ .x$result))
+    )
+}
+
 #' @importFrom jsonlite base64_enc
 #' @importFrom clipr write_clip
 copy_base64 <- function(clip) {

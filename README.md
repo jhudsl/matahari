@@ -59,3 +59,39 @@ dance_tbl() %>%
 ## |wow!                      |wow!  |character |
 ## |mean(1:10)                |5.5   |call      |
 ```
+
+## Evaluating files
+
+```R
+library(matahari)
+library(tidyverse)
+library(knitr)
+
+code_file <- system.file("test", "sample_code.R", package = "matahari")
+
+code_file %>%
+  dance_recital() %>% 
+  kable()
+  
+## |expr                |result   |error           |output   |warnings |messages |
+## |:-------------------|:--------|:---------------|:--------|:--------|:--------|
+## |4 + 4               |8        |NULL            |         |         |         |
+## |wow!                |wow!     |NULL            |         |         |         |
+## |mean(1:10)          |5.5      |NULL            |         |         |         |
+## |stop("Error!")      |NULL     |Error!, .f(...) |NULL     |NULL     |NULL     |
+## |warning("Warning!") |Warning! |NULL            |         |Warning! |         |
+## |message("Hello?")   |NULL     |NULL            |         |         |Hello?   |
+## |cat("Welcome!")     |NULL     |NULL            |Welcome! |         |         |
+
+code_string <- "set.seed(42)\nx <- sample(1:10, 5)\nmedian(x)"
+
+code_string %>%
+  dance_recital() %>% 
+  kable()
+
+## |expr                 |result         |error |output |warnings |messages |
+## |:--------------------|:--------------|:-----|:------|:--------|:--------|
+## |set.seed(42)         |NULL           |NULL  |       |         |         |
+## |x <- sample(1:10, 5) |10, 9, 3, 6, 4 |NULL  |       |         |         |
+## |median(x)            |6              |NULL  |       |         |         |
+```
