@@ -45,7 +45,7 @@ dance_start <- function(expr = TRUE, value = FALSE, path = FALSE, contents = FAL
                            dt = Sys.time())
       assign(".dance",
              setup_tbl,
-             envir = get_env())
+             envir = env)
     } else {
       d <- get(".dance", envir = env)
       assign(".dance", add_row(d,
@@ -55,7 +55,7 @@ dance_start <- function(expr = TRUE, value = FALSE, path = FALSE, contents = FAL
                                contents = list(ie(contents, ed$contents, NA)),
                                selection = ie(selection, ed$selection, NA),
                                dt = Sys.time()
-                               ), envir = get_env())
+      ), envir = env)
     }
     TRUE
   }
@@ -79,8 +79,10 @@ dance_stop <- function() {
 #' @return Either \code{TRUE} if the log was removed or \code{FALSE} if the log
 #' does not exist (invisibly).
 dance_remove <- function() {
-  result <- tryCatch(rm(".dance", envir = env),
-                     warning = function(e){FALSE})
+  result <- FALSE
+  if (exists(".dance", envir = env)) {
+    result <- rm(".dance", envir = env)
+  }
   invisible(is.null(result))
 }
 
@@ -91,7 +93,7 @@ dance_remove <- function() {
 #' if there is no log.
 dance_tbl <- function() {
   result <- tryCatch(get(".dance", envir = env),
-           error = function(e){NULL})
+                     error = function(e){NULL})
   result
 }
 
@@ -189,9 +191,7 @@ base64_to_df <- function(string) {
   unserialize(base64_dec(string))
 }
 
-get_env <- function(){
-  env
-}
+env <- new.env(parent = emptyenv())
 
 there_is_a_dance <- function() {
   ".dance" %in% ls(all.names = TRUE, envir = env)
@@ -207,6 +207,6 @@ add_session_info <- function() {
                              contents = list(NA),
                              selection = list(NA),
                              dt = Sys.time()
-    ), envir = get_env())
+    ), envir = env)
   }
 }
