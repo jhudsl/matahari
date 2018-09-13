@@ -29,7 +29,7 @@ dance_start <- function(expr = TRUE, value = FALSE, path = FALSE, contents = FAL
       ed <- list(path = NA, contents = NA, selection = NA)
     }
 
-    if(!(".dance" %in% ls(all.names = TRUE, envir = .GlobalEnv))) {
+    if(!(".dance" %in% ls(all.names = TRUE, envir = env))) {
       setup_tbl <- data_frame(expr = list(quote(sessionInfo())),
                               value = list(sessionInfo()),
                               path = list(ie(path, ed$path, NA)),
@@ -47,7 +47,7 @@ dance_start <- function(expr = TRUE, value = FALSE, path = FALSE, contents = FAL
              setup_tbl,
              envir = get_env())
     } else {
-      d <- get(".dance", envir = .GlobalEnv)
+      d <- get(".dance", envir = env)
       assign(".dance", add_row(d,
                                expr = list(ie(expr, expr_, NA)),
                                value = list(ie(value, value_, NA)),
@@ -79,7 +79,7 @@ dance_stop <- function() {
 #' @return Either \code{TRUE} if the log was removed or \code{FALSE} if the log
 #' does not exist (invisibly).
 dance_remove <- function() {
-  result <- tryCatch(rm(".dance", envir = .GlobalEnv),
+  result <- tryCatch(rm(".dance", envir = env),
                      warning = function(e){FALSE})
   invisible(is.null(result))
 }
@@ -90,7 +90,7 @@ dance_remove <- function() {
 #' @return Either a data frame containing your logged history or \code{NULL}
 #' if there is no log.
 dance_tbl <- function() {
-  result <- tryCatch(get(".dance", envir = .GlobalEnv),
+  result <- tryCatch(get(".dance", envir = env),
            error = function(e){NULL})
   result
 }
@@ -190,16 +190,16 @@ base64_to_df <- function(string) {
 }
 
 get_env <- function(){
-  .GlobalEnv
+  env
 }
 
 there_is_a_dance <- function() {
-  ".dance" %in% ls(all.names = TRUE, envir = .GlobalEnv)
+  ".dance" %in% ls(all.names = TRUE, envir = env)
 }
 
 add_session_info <- function() {
   if (there_is_a_dance()) {
-    d <- get(".dance", envir = .GlobalEnv)
+    d <- get(".dance", envir = env)
     assign(".dance", add_row(d,
                              expr = list(quote(sessionInfo())),
                              value = list(sessionInfo()),
