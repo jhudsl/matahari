@@ -92,9 +92,9 @@ dance_remove <- function() {
 #' @return Either a data frame containing your logged history or \code{NULL}
 #' if there is no log.
 dance_tbl <- function() {
-  result <- tryCatch(get(".dance", envir = env),
-                     error = function(e){NULL})
-  result
+  if (exists(".dance", envir = env)) {
+    get(".dance", envir = env)
+  }
 }
 
 #' Save the log as an rds file.
