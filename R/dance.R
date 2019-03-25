@@ -151,7 +151,7 @@ dance_recital <- function(code, evaluate = TRUE) {
 
   if (!evaluate) {
     return(data_frame(expr = parse_exprs(code),
-                      result = list(NULL),
+                      value = list(NULL),
                       error = list(NULL),
                       output = list(NULL),
                       warnings = list(NULL),
