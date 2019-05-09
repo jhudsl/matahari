@@ -12,7 +12,6 @@ Imports:
     readr,
     jsonlite,
     clipr,
-    dplyr,
     purrr,
     rlang
 Suggests:
