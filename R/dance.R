@@ -31,11 +31,11 @@ dance_start <- function(expr = TRUE, value = FALSE, path = FALSE, contents = FAL
 
     if(!(".dance" %in% ls(all.names = TRUE, envir = env))) {
       setup_tbl <- tibble(expr = list(quote(sessionInfo())),
-                              value = list(sessionInfo()),
-                              path = list(ie(path, ed$path, NA)),
-                              contents = list(ie(contents, ed$contents, NA)),
-                              selection = ie(selection, ed$selection, NA),
-                              dt = Sys.time())
+                          value = list(sessionInfo()),
+                          path = list(ie(path, ed$path, NA)),
+                          contents = list(ie(contents, ed$contents, NA)),
+                          selection = ie(selection, ed$selection, NA),
+                          dt = Sys.time())
       setup_tbl <- add_row(setup_tbl,
                            expr = list(ie(expr, expr_, NA)),
                            value = list(ie(value, value_, NA)),
@@ -139,8 +139,7 @@ dance_report <- function(...) {
 #' @param evaluate Logical, indicating whether to evaluate the code, default is `TRUE`
 #' @importFrom readr read_file
 #' @importFrom rlang is_scalar_character abort parse_exprs .data
-#' @importFrom dplyr bind_cols mutate
-#' @importFrom tibble tibble as_tibble
+#' @importFrom tibble tibble as_tibble add_column
 #' @importFrom purrr map safely quietly transpose "%>%"
 #' @export
 dance_recital <- function(code, evaluate = TRUE) {
@@ -154,26 +153,26 @@ dance_recital <- function(code, evaluate = TRUE) {
 
   if (!evaluate) {
     return(tibble(expr = parse_exprs(code),
-                      value = list(NULL),
-                      error = list(NULL),
-                      output = list(NULL),
-                      warnings = list(NULL),
-                      message = list(NULL)))
+                  value = list(NULL),
+                  error = list(NULL),
+                  output = list(NULL),
+                  warnings = list(NULL),
+                  message = list(NULL)))
   }
 
   e <- new.env()
 
+  r <- parse_exprs(code) %>%
+    map(~safely(quietly(eval))(.x, envir = e)) %>%
+    transpose() %>%
+    as_tibble()
+
   tibble(expr = parse_exprs(code)) %>%
-    bind_cols(
-      parse_exprs(code) %>%
-        map(~safely(quietly(eval))(.x, envir = e)) %>%
-        transpose() %>%
-        as_tibble() %>%
-        mutate(output = map(.data$result, ~ .x$output)) %>%
-        mutate(warnings = map(.data$result, ~ .x$warnings)) %>%
-        mutate(messages = map(.data$result, ~ .x$messages)) %>%
-        mutate(result = map(.data$result, ~ .x$result))
-    )
+    add_column(result = map(r$result, ~ .x$result)) %>%
+    add_column(error = r$error) %>%
+    add_column(output = map(r$result, ~ .x$output)) %>%
+    add_column(warnings = map(r$result, ~ .x$warnings)) %>%
+    add_column(messages = map(r$result, ~ .x$messages))
 }
 
 #' @importFrom jsonlite base64_enc
