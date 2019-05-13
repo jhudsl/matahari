@@ -1,7 +1,7 @@
 Package: matahari
 Type: Package
 Title: Spy on Your R Session
-Version: 0.0.0.9013
+Version: 0.0.0.9015
 Authors@R: person("Sean", "Kross", email = "sean@seankross.com", role = c("aut", "cre"))
 Description: Create a tidy log of everything you type into the R console.
 Depends:
@@ -22,4 +22,4 @@ URL: http://github.com/jhudsl/matahari
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1
