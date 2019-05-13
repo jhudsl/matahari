@@ -17,7 +17,7 @@ test_that("dance_recital can read a code file", {
   expect_equal(purrr::flatten(recital_result), purrr::flatten(expected_result))
 })
 
-code_string <- "set.seed(42);x <- sample(1:10, 5);median(x);y"
+code_string <- "m <- function(){'bb'};m();x <- c(7L, 8L, 3L, 4L, 5L);median(x);y"
 
 # # Create file to compare
 # code_string %>%
