@@ -15,7 +15,7 @@
 #' @param selection The text that is highlighted in the RStudio editor tab in
 #' focus will be logged unless this is set to `FALSE`.
 #' @importFrom rstudioapi isAvailable getSourceEditorContext
-#' @importFrom tibble data_frame add_row
+#' @importFrom tibble tibble add_row
 #' @export
 dance_start <- function(expr = TRUE, value = FALSE, path = FALSE, contents = FALSE,
                         selection = FALSE) {
@@ -30,12 +30,12 @@ dance_start <- function(expr = TRUE, value = FALSE, path = FALSE, contents = FAL
     }
 
     if(!(".dance" %in% ls(all.names = TRUE, envir = env))) {
-      setup_tbl <- data_frame(expr = list(quote(sessionInfo())),
-                              value = list(sessionInfo()),
-                              path = list(ie(path, ed$path, NA)),
-                              contents = list(ie(contents, ed$contents, NA)),
-                              selection = ie(selection, ed$selection, NA),
-                              dt = Sys.time())
+      setup_tbl <- tibble(expr = list(quote(sessionInfo())),
+                          value = list(sessionInfo()),
+                          path = list(ie(path, ed$path, NA)),
+                          contents = list(ie(contents, ed$contents, NA)),
+                          selection = ie(selection, ed$selection, NA),
+                          dt = Sys.time())
       setup_tbl <- add_row(setup_tbl,
                            expr = list(ie(expr, expr_, NA)),
                            value = list(ie(value, value_, NA)),
@@ -139,8 +139,8 @@ dance_report <- function(...) {
 #' @param evaluate Logical, indicating whether to evaluate the code, default is `TRUE`
 #' @importFrom readr read_file
 #' @importFrom rlang is_scalar_character abort parse_exprs .data
-#' @importFrom dplyr data_frame "%>%" bind_cols mutate as_data_frame
-#' @importFrom purrr map safely quietly transpose
+#' @importFrom tibble tibble as_tibble add_column
+#' @importFrom purrr map safely quietly transpose "%>%"
 #' @export
 dance_recital <- function(code, evaluate = TRUE) {
   if (file.exists(code)) {
@@ -152,27 +152,27 @@ dance_recital <- function(code, evaluate = TRUE) {
   }
 
   if (!evaluate) {
-    return(data_frame(expr = parse_exprs(code),
-                      value = list(NULL),
-                      error = list(NULL),
-                      output = list(NULL),
-                      warnings = list(NULL),
-                      message = list(NULL)))
+    return(tibble(expr = parse_exprs(code),
+                  value = list(NULL),
+                  error = list(NULL),
+                  output = list(NULL),
+                  warnings = list(NULL),
+                  message = list(NULL)))
   }
 
   e <- new.env()
 
-  data_frame(expr = parse_exprs(code)) %>%
-    bind_cols(
-      parse_exprs(code) %>%
-        map(~safely(quietly(eval))(.x, envir = e)) %>%
-        transpose() %>%
-        as_data_frame() %>%
-        mutate(output = map(.data$result, ~ .x$output)) %>%
-        mutate(warnings = map(.data$result, ~ .x$warnings)) %>%
-        mutate(messages = map(.data$result, ~ .x$messages)) %>%
-        mutate(result = map(.data$result, ~ .x$result))
-    )
+  r <- parse_exprs(code) %>%
+    map(~safely(quietly(eval))(.x, envir = e)) %>%
+    transpose() %>%
+    as_tibble()
+
+  tibble(expr = parse_exprs(code)) %>%
+    add_column(result = map(r$result, ~ .x$result)) %>%
+    add_column(error = r$error) %>%
+    add_column(output = map(r$result, ~ .x$output)) %>%
+    add_column(warnings = map(r$result, ~ .x$warnings)) %>%
+    add_column(messages = map(r$result, ~ .x$messages))
 }
 
 #' @importFrom jsonlite base64_enc
