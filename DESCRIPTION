@@ -19,7 +19,9 @@ Imports:
     purrr,
     rlang
 Suggests:
-    testthat
+    testthat,
+    knitr,
+    rmarkdown
 License: MIT + file LICENSE
 URL: https://github.com/jhudsl/matahari
 Encoding: UTF-8
@@ -27,3 +29,4 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.1
 BugReports: https://github.com/jhudsl/matahari/issues
+VignetteBuilder: knitr
