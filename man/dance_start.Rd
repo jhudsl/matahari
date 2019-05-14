@@ -4,8 +4,8 @@
 \alias{dance_start}
 \title{Start Spying}
 \usage{
-dance_start(expr = TRUE, value = FALSE, path = FALSE,
-  contents = FALSE, selection = FALSE)
+dance_start(expr = TRUE, value = FALSE, path = FALSE, contents = FALSE,
+  selection = FALSE)
 }
 \arguments{
 \item{expr}{The R expressions typed into the R console will be logged unless
