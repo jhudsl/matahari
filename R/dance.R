@@ -168,7 +168,7 @@ dance_recital <- function(code, evaluate = TRUE) {
     as_tibble()
 
   tibble(expr = parse_exprs(code)) %>%
-    add_column(result = map(r$result, ~ .x$result)) %>%
+    add_column(value = map(r$result, ~ .x$result)) %>%
     add_column(error = r$error) %>%
     add_column(output = map(r$result, ~ .x$output)) %>%
     add_column(warnings = map(r$result, ~ .x$warnings)) %>%
