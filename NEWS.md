@@ -1,3 +1,3 @@
-# matahari 0.0.0.9017
+# matahari 0.1.0
 
 * Initial CRAN submission

@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">matahari</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9017</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -80,6 +80,9 @@
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -129,12 +132,26 @@
     </table>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>code_file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"test"</span>, <span class='st'>"sample_code.R"</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"matahari"</span>)
+<span class='fu'>dance_recital</span>(<span class='no'>code_file</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 7 x 6</span><span>
+#&gt;   expr       value     error      output    warnings  messages 
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>   
+#&gt; </span><span style='color: #555555;'>1</span><span> </span><span style='color: #555555;'>&lt;language&gt;</span><span> </span><span style='color: #555555;'>&lt;dbl [1]&gt;</span><span> </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>     </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span> </span><span style='color: #555555;'>&lt;chr [0]&gt;</span><span> </span><span style='color: #555555;'>&lt;chr [0]&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>2</span><span> </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span>  </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span> </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>     </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span> </span><span style='color: #555555;'>&lt;chr [0]&gt;</span><span> </span><span style='color: #555555;'>&lt;chr [0]&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>3</span><span> </span><span style='color: #555555;'>&lt;language&gt;</span><span> </span><span style='color: #555555;'>&lt;dbl [1]&gt;</span><span> </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>     </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span> </span><span style='color: #555555;'>&lt;chr [0]&gt;</span><span> </span><span style='color: #555555;'>&lt;chr [0]&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>4</span><span> </span><span style='color: #555555;'>&lt;language&gt;</span><span> </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>    </span><span style='color: #555555;'>&lt;smplErrr&gt;</span><span> </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>    </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>    </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>   
+#&gt; </span><span style='color: #555555;'>5</span><span> </span><span style='color: #555555;'>&lt;language&gt;</span><span> </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span> </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>     </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span> </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span> </span><span style='color: #555555;'>&lt;chr [0]&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>6</span><span> </span><span style='color: #555555;'>&lt;language&gt;</span><span> </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>    </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>     </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span> </span><span style='color: #555555;'>&lt;chr [0]&gt;</span><span> </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span>
+#&gt; </span><span style='color: #555555;'>7</span><span> </span><span style='color: #555555;'>&lt;language&gt;</span><span> </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>    </span><span style='color: #555555;'>&lt;NULL&gt;</span><span>     </span><span style='color: #555555;'>&lt;chr [1]&gt;</span><span> </span><span style='color: #555555;'>&lt;chr [0]&gt;</span><span> </span><span style='color: #555555;'>&lt;chr [0]&gt;</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+            
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>

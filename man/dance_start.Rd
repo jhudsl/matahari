@@ -4,8 +4,8 @@
 \alias{dance_start}
 \title{Start Spying}
 \usage{
-dance_start(expr = TRUE, value = FALSE, path = FALSE, contents = FALSE,
-  selection = FALSE)
+dance_start(expr = TRUE, value = FALSE, path = FALSE,
+  contents = FALSE, selection = FALSE)
 }
 \arguments{
 \item{expr}{The R expressions typed into the R console will be logged unless
@@ -27,4 +27,17 @@ focus will be logged unless this is set to \code{FALSE}.}
 Start logging your R console activity. If you're using RStudio the contents
 of your current editor tab will also be tracked. All logging takes place when
 R code is executed in the R console.
+}
+\examples{
+\dontrun{
+
+dance_start()
+"Hello!"
+4 + 4
+x <- 7
+x^2
+rm(x)
+x
+dance_stop()
+}
 }

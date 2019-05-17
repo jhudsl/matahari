@@ -1,15 +1,17 @@
 Package: matahari
 Type: Package
 Title: Spy on Your R Session
-Version: 0.0.0.9017
+Version: 0.1.0
 Authors@R: c(
-    person("Sean", "Kross", email = "sean@seankross.com", role = c("aut", "cre")),
-    person("Lucy", "D'Agostino McGowan", email = "lucydagostino@gmail.com", role = "aut"),
-    person("Jeff", "Leek", email = "jtleek@gmail.com", role = "ldr")
+    person("Sean", "Kross", email = "sean@seankross.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0001-5215-0316")),
+    person("Lucy", "D'Agostino McGowan", email = "lucydagostino@gmail.com", role = "aut", comment = c(ORCID = "0000-0001-7297-9359")),
+    person("Jeff", "Leek", email = "jtleek@gmail.com", role = "ldr", comment = c(ORCID = "0000-0002-2873-2671"))
     )
-Description: Create a tidy log of everything you type into the R console.
+Description: Conveniently log everything you type into the R console. Logs are
+    are stored as tidy data frames which can then be analyzed using 'tidyverse'
+    style tools.
 Depends:
-    R (>= 3.1.0)
+    R (>= 3.5.0)
 Imports:
     rstudioapi,
     tibble,

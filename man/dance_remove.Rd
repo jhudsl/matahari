@@ -13,3 +13,15 @@ does not exist (invisibly).
 \description{
 Remove your logging history.
 }
+\examples{
+\dontrun{
+
+dance_start()
+"Hello!"
+4 + 4
+dance_stop()
+dance_tbl()
+dance_remove()
+dance_tbl()
+}
+}

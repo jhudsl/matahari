@@ -14,3 +14,7 @@ dance_recital(code, evaluate = TRUE)
 \description{
 Create a matahari-esque data frame from a file.
 }
+\examples{
+code_file <- system.file("test", "sample_code.R", package = "matahari")
+dance_recital(code_file)
+}

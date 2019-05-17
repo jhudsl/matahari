@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">matahari</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9017</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -47,6 +47,9 @@
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -174,18 +177,18 @@
 <a href="#input-a--r-file" class="anchor"></a>Input a .R file</h2>
 <p>The same <code><a href="../reference/dance_recital.html">dance_recital()</a></code> function can be used to analyze a .R file. Instead of including the code as a character string, pass the <em>path</em> of the .R file. An example file is included in this package.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">(file &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/system.file">system.file</a></span>(<span class="st">"test"</span>, <span class="st">"sample_code.R"</span>, <span class="dt">package =</span> <span class="st">"matahari"</span>))</a>
-<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="co">#&gt; [1] "/Library/Frameworks/R.framework/Versions/3.5/Resources/library/matahari/test/sample_code.R"</span></a></code></pre></div>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="co">#&gt; [1] "/Library/Frameworks/R.framework/Versions/3.6/Resources/library/matahari/test/sample_code.R"</span></a></code></pre></div>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="../reference/dance_recital.html">dance_recital</a></span>(file)</a>
 <a class="sourceLine" id="cb9-2" data-line-number="2"><span class="co">#&gt; # A tibble: 7 x 6</span></a>
-<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="co">#&gt;   expr       value     error             output    warnings  messages </span></a>
-<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="co">#&gt;   &lt;list&gt;     &lt;list&gt;    &lt;list&gt;            &lt;list&gt;    &lt;list&gt;    &lt;list&gt;   </span></a>
-<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="co">#&gt; 1 &lt;language&gt; &lt;dbl [1]&gt; &lt;NULL&gt;            &lt;chr [1]&gt; &lt;chr [0]&gt; &lt;chr [0]&gt;</span></a>
-<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="co">#&gt; 2 &lt;chr [1]&gt;  &lt;chr [1]&gt; &lt;NULL&gt;            &lt;chr [1]&gt; &lt;chr [0]&gt; &lt;chr [0]&gt;</span></a>
-<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="co">#&gt; 3 &lt;language&gt; &lt;dbl [1]&gt; &lt;NULL&gt;            &lt;chr [1]&gt; &lt;chr [0]&gt; &lt;chr [0]&gt;</span></a>
-<a class="sourceLine" id="cb9-8" data-line-number="8"><span class="co">#&gt; 4 &lt;language&gt; &lt;NULL&gt;    &lt;S3: simpleError&gt; &lt;NULL&gt;    &lt;NULL&gt;    &lt;NULL&gt;   </span></a>
-<a class="sourceLine" id="cb9-9" data-line-number="9"><span class="co">#&gt; 5 &lt;language&gt; &lt;chr [1]&gt; &lt;NULL&gt;            &lt;chr [1]&gt; &lt;chr [1]&gt; &lt;chr [0]&gt;</span></a>
-<a class="sourceLine" id="cb9-10" data-line-number="10"><span class="co">#&gt; 6 &lt;language&gt; &lt;NULL&gt;    &lt;NULL&gt;            &lt;chr [1]&gt; &lt;chr [0]&gt; &lt;chr [1]&gt;</span></a>
-<a class="sourceLine" id="cb9-11" data-line-number="11"><span class="co">#&gt; 7 &lt;language&gt; &lt;NULL&gt;    &lt;NULL&gt;            &lt;chr [1]&gt; &lt;chr [0]&gt; &lt;chr [0]&gt;</span></a></code></pre></div>
+<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="co">#&gt;   expr       value     error      output    warnings  messages </span></a>
+<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="co">#&gt;   &lt;list&gt;     &lt;list&gt;    &lt;list&gt;     &lt;list&gt;    &lt;list&gt;    &lt;list&gt;   </span></a>
+<a class="sourceLine" id="cb9-5" data-line-number="5"><span class="co">#&gt; 1 &lt;language&gt; &lt;dbl [1]&gt; &lt;NULL&gt;     &lt;chr [1]&gt; &lt;chr [0]&gt; &lt;chr [0]&gt;</span></a>
+<a class="sourceLine" id="cb9-6" data-line-number="6"><span class="co">#&gt; 2 &lt;chr [1]&gt;  &lt;chr [1]&gt; &lt;NULL&gt;     &lt;chr [1]&gt; &lt;chr [0]&gt; &lt;chr [0]&gt;</span></a>
+<a class="sourceLine" id="cb9-7" data-line-number="7"><span class="co">#&gt; 3 &lt;language&gt; &lt;dbl [1]&gt; &lt;NULL&gt;     &lt;chr [1]&gt; &lt;chr [0]&gt; &lt;chr [0]&gt;</span></a>
+<a class="sourceLine" id="cb9-8" data-line-number="8"><span class="co">#&gt; 4 &lt;language&gt; &lt;NULL&gt;    &lt;smplErrr&gt; &lt;NULL&gt;    &lt;NULL&gt;    &lt;NULL&gt;   </span></a>
+<a class="sourceLine" id="cb9-9" data-line-number="9"><span class="co">#&gt; 5 &lt;language&gt; &lt;chr [1]&gt; &lt;NULL&gt;     &lt;chr [1]&gt; &lt;chr [1]&gt; &lt;chr [0]&gt;</span></a>
+<a class="sourceLine" id="cb9-10" data-line-number="10"><span class="co">#&gt; 6 &lt;language&gt; &lt;NULL&gt;    &lt;NULL&gt;     &lt;chr [1]&gt; &lt;chr [0]&gt; &lt;chr [1]&gt;</span></a>
+<a class="sourceLine" id="cb9-11" data-line-number="11"><span class="co">#&gt; 7 &lt;language&gt; &lt;NULL&gt;    &lt;NULL&gt;     &lt;chr [1]&gt; &lt;chr [0]&gt; &lt;chr [0]&gt;</span></a></code></pre></div>
 </div>
   </div>
 
