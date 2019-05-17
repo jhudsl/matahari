@@ -13,3 +13,13 @@ if there is no log.
 \description{
 Get the log as a data frame
 }
+\examples{
+\dontrun{
+
+dance_start()
+"Hello!"
+4 + 4
+dance_stop()
+dance_tbl()
+}
+}

@@ -28,3 +28,16 @@ Start logging your R console activity. If you're using RStudio the contents
 of your current editor tab will also be tracked. All logging takes place when
 R code is executed in the R console.
 }
+\examples{
+\dontrun{
+
+dance_start()
+"Hello!"
+4 + 4
+x <- 7
+x^2
+rm(x)
+x
+dance_stop()
+}
+}

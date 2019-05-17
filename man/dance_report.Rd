@@ -12,3 +12,13 @@ dance_report(...)
 \description{
 Copy the log to your clipboard.
 }
+\examples{
+\dontrun{
+
+dance_start()
+"Hello!"
+4 + 4
+dance_stop()
+dance_report()
+}
+}

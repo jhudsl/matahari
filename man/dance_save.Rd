@@ -12,3 +12,13 @@ dance_save(path)
 \description{
 Save the log as an rds file.
 }
+\examples{
+\dontrun{
+
+dance_start()
+"Hello!"
+4 + 4
+dance_stop()
+dance_save("session.rds")
+}
+}

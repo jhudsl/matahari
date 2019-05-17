@@ -17,6 +17,18 @@
 #' @importFrom rstudioapi isAvailable getSourceEditorContext
 #' @importFrom tibble tibble add_row
 #' @export
+#' @examples
+#' \dontrun{
+#'
+#' dance_start()
+#' "Hello!"
+#' 4 + 4
+#' x <- 7
+#' x^2
+#' rm(x)
+#' x
+#' dance_stop()
+#' }
 dance_start <- function(expr = TRUE, value = FALSE, path = FALSE, contents = FALSE,
                         selection = FALSE) {
   cb <- function(expr_, value_, ok, visible){
@@ -67,6 +79,18 @@ dance_start <- function(expr = TRUE, value = FALSE, path = FALSE, contents = FAL
 #' Pause the current logging session.
 #'
 #' @export
+#' @examples
+#' \dontrun{
+#'
+#' dance_start()
+#' "Hello!"
+#' 4 + 4
+#' x <- 7
+#' x^2
+#' rm(x)
+#' x
+#' dance_stop()
+#' }
 #' @return \code{TRUE} if logging was taking place, otherwise \code{FALSE} (invisibly).
 dance_stop <- function() {
   add_session_info()
@@ -76,6 +100,17 @@ dance_stop <- function() {
 #' Remove your logging history.
 #'
 #' @export
+#' @examples
+#' \dontrun{
+#'
+#' dance_start()
+#' "Hello!"
+#' 4 + 4
+#' dance_stop()
+#' dance_tbl()
+#' dance_remove()
+#' dance_tbl()
+#' }
 #' @return Either \code{TRUE} if the log was removed or \code{FALSE} if the log
 #' does not exist (invisibly).
 dance_remove <- function() {
@@ -89,6 +124,15 @@ dance_remove <- function() {
 #' Get the log as a data frame
 #'
 #' @export
+#' @examples
+#' \dontrun{
+#'
+#' dance_start()
+#' "Hello!"
+#' 4 + 4
+#' dance_stop()
+#' dance_tbl()
+#' }
 #' @return Either a data frame containing your logged history or \code{NULL}
 #' if there is no log.
 dance_tbl <- function() {
@@ -102,6 +146,15 @@ dance_tbl <- function() {
 #' @param path The path to the rds file.
 #' @importFrom readr write_rds
 #' @export
+#' @examples
+#' \dontrun{
+#'
+#' dance_start()
+#' "Hello!"
+#' 4 + 4
+#' dance_stop()
+#' dance_save("session.rds")
+#' }
 dance_save <- function(path) {
   add_session_info()
 
@@ -121,15 +174,24 @@ ie <- function(cond, t, f){
 #'
 #' @param ... Developer options.
 #' @export
+#' @examples
+#' \dontrun{
+#'
+#' dance_start()
+#' "Hello!"
+#' 4 + 4
+#' dance_stop()
+#' dance_report()
+#' }
 dance_report <- function(...) {
   add_session_info()
 
   ellipsis <- list(...)
 
   if(!is.null(ellipsis$input)) {
-    base64_to_df(ellipsis$input)
+    invisible(base64_to_df(ellipsis$input))
   } else {
-    copy_base64(clip = ellipsis$clip)
+    invisible(copy_base64(clip = ellipsis$clip))
   }
 }
 
@@ -142,6 +204,9 @@ dance_report <- function(...) {
 #' @importFrom tibble tibble as_tibble add_column
 #' @importFrom purrr map safely quietly transpose "%>%"
 #' @export
+#' @examples
+#' code_file <- system.file("test", "sample_code.R", package = "matahari")
+#' dance_recital(code_file)
 dance_recital <- function(code, evaluate = TRUE) {
   if (file.exists(code)) {
     code <- read_file(code)
