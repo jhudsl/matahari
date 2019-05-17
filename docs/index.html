@@ -10,7 +10,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Spy on Your R Session">
-<meta property="og:description" content="Create a tidy log of everything you type into the R console.">
+<meta property="og:description" content="Conveniently log everything you type into the R console. Logs are
+    are stored as tidy data frames which can then be analyzed using 'tidyverse'
+    style tools.">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -30,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">matahari</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9017</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -47,6 +49,9 @@
 </li>
 <li>
   <a href="reference/index.html">Reference</a>
+</li>
+<li>
+  <a href="news/index.html">Changelog</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
@@ -81,7 +86,7 @@
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>You can install matahari from github with:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># install.packages("devtools")</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/install_github">install_github</a></span>(<span class="st">"jhudsl/matahari"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb1-2" data-line-number="2">devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"jhudsl/matahari"</span>)</a></code></pre></div>
 </div>
 <div id="getting-started" class="section level2">
 <h2 class="hasAnchor">
@@ -103,15 +108,15 @@
 <a class="sourceLine" id="cb2-15" data-line-number="15"><span class="co"># Look at your log as a tibble</span></a>
 <a class="sourceLine" id="cb2-16" data-line-number="16"><span class="kw"><a href="reference/dance_tbl.html">dance_tbl</a></span>()</a>
 <a class="sourceLine" id="cb2-17" data-line-number="17"></a>
-<a class="sourceLine" id="cb2-18" data-line-number="18">## # A tibble: 6 x 6</a>
-<a class="sourceLine" id="cb2-19" data-line-number="19">##   expr       value             path      contents  selection dt                 </a>
-<a class="sourceLine" id="cb2-20" data-line-number="20">##   &lt;list&gt;     &lt;list&gt;            &lt;list&gt;    &lt;list&gt;    &lt;list&gt;    &lt;dttm&gt;             </a>
-<a class="sourceLine" id="cb2-21" data-line-number="21">## 1 &lt;language&gt; &lt;S3: sessionInfo&gt; &lt;lgl [1]&gt; &lt;lgl [1]&gt; &lt;lgl [1]&gt; 2018-06-23 15:26:06</a>
-<a class="sourceLine" id="cb2-22" data-line-number="22">## 2 &lt;language&gt; &lt;int [1]&gt;         &lt;lgl [1]&gt; &lt;lgl [1]&gt; &lt;lgl [1]&gt; 2018-06-23 15:26:06</a>
-<a class="sourceLine" id="cb2-23" data-line-number="23">## 3 &lt;language&gt; &lt;dbl [1]&gt;         &lt;lgl [1]&gt; &lt;lgl [1]&gt; &lt;lgl [1]&gt; 2018-06-23 15:26:07</a>
-<a class="sourceLine" id="cb2-24" data-line-number="24">## 4 &lt;chr [1]&gt;  &lt;chr [1]&gt;         &lt;lgl [1]&gt; &lt;lgl [1]&gt; &lt;lgl [1]&gt; 2018-06-23 15:26:08</a>
-<a class="sourceLine" id="cb2-25" data-line-number="25">## 5 &lt;language&gt; &lt;dbl [1]&gt;         &lt;lgl [1]&gt; &lt;lgl [1]&gt; &lt;lgl [1]&gt; 2018-06-23 15:26:08</a>
-<a class="sourceLine" id="cb2-26" data-line-number="26">## 6 &lt;language&gt; &lt;S3: sessionInfo&gt; &lt;lgl [1]&gt; &lt;lgl [1]&gt; &lt;lgl [1]&gt; 2018-06-23 15:26:09</a>
+<a class="sourceLine" id="cb2-18" data-line-number="18"><span class="co">## # A tibble: 6 x 6</span></a>
+<a class="sourceLine" id="cb2-19" data-line-number="19"><span class="co">##   expr       value             path      contents  selection dt                 </span></a>
+<a class="sourceLine" id="cb2-20" data-line-number="20"><span class="co">##   &lt;list&gt;     &lt;list&gt;            &lt;list&gt;    &lt;list&gt;    &lt;list&gt;    &lt;dttm&gt;             </span></a>
+<a class="sourceLine" id="cb2-21" data-line-number="21"><span class="co">## 1 &lt;language&gt; &lt;S3: sessionInfo&gt; &lt;lgl [1]&gt; &lt;lgl [1]&gt; &lt;lgl [1]&gt; 2018-06-23 15:26:06</span></a>
+<a class="sourceLine" id="cb2-22" data-line-number="22"><span class="co">## 2 &lt;language&gt; &lt;int [1]&gt;         &lt;lgl [1]&gt; &lt;lgl [1]&gt; &lt;lgl [1]&gt; 2018-06-23 15:26:06</span></a>
+<a class="sourceLine" id="cb2-23" data-line-number="23"><span class="co">## 3 &lt;language&gt; &lt;dbl [1]&gt;         &lt;lgl [1]&gt; &lt;lgl [1]&gt; &lt;lgl [1]&gt; 2018-06-23 15:26:07</span></a>
+<a class="sourceLine" id="cb2-24" data-line-number="24"><span class="co">## 4 &lt;chr [1]&gt;  &lt;chr [1]&gt;         &lt;lgl [1]&gt; &lt;lgl [1]&gt; &lt;lgl [1]&gt; 2018-06-23 15:26:08</span></a>
+<a class="sourceLine" id="cb2-25" data-line-number="25"><span class="co">## 5 &lt;language&gt; &lt;dbl [1]&gt;         &lt;lgl [1]&gt; &lt;lgl [1]&gt; &lt;lgl [1]&gt; 2018-06-23 15:26:08</span></a>
+<a class="sourceLine" id="cb2-26" data-line-number="26"><span class="co">## 6 &lt;language&gt; &lt;S3: sessionInfo&gt; &lt;lgl [1]&gt; &lt;lgl [1]&gt; &lt;lgl [1]&gt; 2018-06-23 15:26:09</span></a>
 <a class="sourceLine" id="cb2-27" data-line-number="27"></a>
 <a class="sourceLine" id="cb2-28" data-line-number="28"><span class="co"># Do data science</span></a>
 <a class="sourceLine" id="cb2-29" data-line-number="29"><span class="kw"><a href="reference/dance_tbl.html">dance_tbl</a></span>() <span class="op">%&gt;%</span></a>
@@ -120,12 +125,12 @@
 <a class="sourceLine" id="cb2-32" data-line-number="32"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">class =</span> <span class="kw">map_chr</span>(expr, class)) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb2-33" data-line-number="33"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/knitr/topics/kable">kable</a></span>()</a>
 <a class="sourceLine" id="cb2-34" data-line-number="34"></a>
-<a class="sourceLine" id="cb2-35" data-line-number="35">## |expr                      |value |class     |</a>
-<a class="sourceLine" id="cb2-36" data-line-number="36">## |:-------------------------|:-----|:---------|</a>
-<a class="sourceLine" id="cb2-37" data-line-number="37">## |dance_start(value = TRUE) |1     |call      |</a>
-<a class="sourceLine" id="cb2-38" data-line-number="38">## |4 + 4                     |8     |call      |</a>
-<a class="sourceLine" id="cb2-39" data-line-number="39">## |wow!                      |wow!  |character |</a>
-<a class="sourceLine" id="cb2-40" data-line-number="40">## |mean(1:10)                |5.5   |call      |</a></code></pre></div>
+<a class="sourceLine" id="cb2-35" data-line-number="35"><span class="co">## |expr                      |value |class     |</span></a>
+<a class="sourceLine" id="cb2-36" data-line-number="36"><span class="co">## |:-------------------------|:-----|:---------|</span></a>
+<a class="sourceLine" id="cb2-37" data-line-number="37"><span class="co">## |dance_start(value = TRUE) |1     |call      |</span></a>
+<a class="sourceLine" id="cb2-38" data-line-number="38"><span class="co">## |4 + 4                     |8     |call      |</span></a>
+<a class="sourceLine" id="cb2-39" data-line-number="39"><span class="co">## |wow!                      |wow!  |character |</span></a>
+<a class="sourceLine" id="cb2-40" data-line-number="40"><span class="co">## |mean(1:10)                |5.5   |call      |</span></a></code></pre></div>
 </div>
 <div id="evaluating-files" class="section level2">
 <h2 class="hasAnchor">
@@ -140,15 +145,15 @@
 <a class="sourceLine" id="cb3-8" data-line-number="8"><span class="st">  </span><span class="kw"><a href="reference/dance_recital.html">dance_recital</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb3-9" data-line-number="9"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/knitr/topics/kable">kable</a></span>()</a>
 <a class="sourceLine" id="cb3-10" data-line-number="10">  </a>
-<a class="sourceLine" id="cb3-11" data-line-number="11">## |expr                |result   |error           |output   |warnings |messages |</a>
-<a class="sourceLine" id="cb3-12" data-line-number="12">## |:-------------------|:--------|:---------------|:--------|:--------|:--------|</a>
-<a class="sourceLine" id="cb3-13" data-line-number="13">## |4 + 4               |8        |NULL            |         |         |         |</a>
-<a class="sourceLine" id="cb3-14" data-line-number="14">## |wow!                |wow!     |NULL            |         |         |         |</a>
-<a class="sourceLine" id="cb3-15" data-line-number="15">## |mean(1:10)          |5.5      |NULL            |         |         |         |</a>
-<a class="sourceLine" id="cb3-16" data-line-number="16">## |stop("Error!")      |NULL     |Error!, .f(...) |NULL     |NULL     |NULL     |</a>
-<a class="sourceLine" id="cb3-17" data-line-number="17">## |warning("Warning!") |Warning! |NULL            |         |Warning! |         |</a>
-<a class="sourceLine" id="cb3-18" data-line-number="18">## |message("Hello?")   |NULL     |NULL            |         |         |Hello?   |</a>
-<a class="sourceLine" id="cb3-19" data-line-number="19">## |cat("Welcome!")     |NULL     |NULL            |Welcome! |         |         |</a>
+<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">## |expr                |result   |error           |output   |warnings |messages |</span></a>
+<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">## |:-------------------|:--------|:---------------|:--------|:--------|:--------|</span></a>
+<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">## |4 + 4               |8        |NULL            |         |         |         |</span></a>
+<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">## |wow!                |wow!     |NULL            |         |         |         |</span></a>
+<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">## |mean(1:10)          |5.5      |NULL            |         |         |         |</span></a>
+<a class="sourceLine" id="cb3-16" data-line-number="16"><span class="co">## |stop("Error!")      |NULL     |Error!, .f(...) |NULL     |NULL     |NULL     |</span></a>
+<a class="sourceLine" id="cb3-17" data-line-number="17"><span class="co">## |warning("Warning!") |Warning! |NULL            |         |Warning! |         |</span></a>
+<a class="sourceLine" id="cb3-18" data-line-number="18"><span class="co">## |message("Hello?")   |NULL     |NULL            |         |         |Hello?   |</span></a>
+<a class="sourceLine" id="cb3-19" data-line-number="19"><span class="co">## |cat("Welcome!")     |NULL     |NULL            |Welcome! |         |         |</span></a>
 <a class="sourceLine" id="cb3-20" data-line-number="20"></a>
 <a class="sourceLine" id="cb3-21" data-line-number="21">code_string &lt;-<span class="st"> "set.seed(42)</span><span class="ch">\n</span><span class="st">x &lt;- sample(1:10, 5)</span><span class="ch">\n</span><span class="st">median(x)"</span></a>
 <a class="sourceLine" id="cb3-22" data-line-number="22"></a>
@@ -156,11 +161,11 @@
 <a class="sourceLine" id="cb3-24" data-line-number="24"><span class="st">  </span><span class="kw"><a href="reference/dance_recital.html">dance_recital</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb3-25" data-line-number="25"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/knitr/topics/kable">kable</a></span>()</a>
 <a class="sourceLine" id="cb3-26" data-line-number="26"></a>
-<a class="sourceLine" id="cb3-27" data-line-number="27">## |expr                 |result         |error |output |warnings |messages |</a>
-<a class="sourceLine" id="cb3-28" data-line-number="28">## |:--------------------|:--------------|:-----|:------|:--------|:--------|</a>
-<a class="sourceLine" id="cb3-29" data-line-number="29">## |set.seed(42)         |NULL           |NULL  |       |         |         |</a>
-<a class="sourceLine" id="cb3-30" data-line-number="30">## |x &lt;- sample(1:10, 5) |10, 9, 3, 6, 4 |NULL  |       |         |         |</a>
-<a class="sourceLine" id="cb3-31" data-line-number="31">## |median(x)            |6              |NULL  |       |         |         |</a></code></pre></div>
+<a class="sourceLine" id="cb3-27" data-line-number="27"><span class="co">## |expr                 |result         |error |output |warnings |messages |</span></a>
+<a class="sourceLine" id="cb3-28" data-line-number="28"><span class="co">## |:--------------------|:--------------|:-----|:------|:--------|:--------|</span></a>
+<a class="sourceLine" id="cb3-29" data-line-number="29"><span class="co">## |set.seed(42)         |NULL           |NULL  |       |         |         |</span></a>
+<a class="sourceLine" id="cb3-30" data-line-number="30"><span class="co">## |x &lt;- sample(1:10, 5) |10, 9, 3, 6, 4 |NULL  |       |         |         |</span></a>
+<a class="sourceLine" id="cb3-31" data-line-number="31"><span class="co">## |median(x)            |6              |NULL  |       |         |         |</span></a></code></pre></div>
 </div>
 </div>
   </div>
@@ -186,8 +191,8 @@
 <div class="developers">
 <h2>Developers</h2>
 <ul class="list-unstyled">
-<li>Sean Kross <br><small class="roles"> Author, maintainer </small>  </li>
-<li>Lucy D'Agostino McGowan <br><small class="roles"> Author </small>  </li>
+<li>Sean Kross <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0001-5215-0316" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID" height="16"></a> </li>
+<li>Lucy D'Agostino McGowan <br><small class="roles"> Author </small> <a href="https://orcid.org/0000-0001-7297-9359" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID" height="16"></a> </li>
 <li><a href="authors.html">All authors...</a></li>
 </ul>
 </div>
