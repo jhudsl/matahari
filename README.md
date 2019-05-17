@@ -1,6 +1,9 @@
 # matahari
 
+<!-- badges: start -->
+[![CRAN status](https://www.r-pkg.org/badges/version/matahari)](https://cran.r-project.org/package=matahari)
 [![Travis-CI Build Status](https://travis-ci.org/jhudsl/matahari.svg?branch=master)](https://travis-ci.org/jhudsl/matahari)
+<!-- badges: end -->
 
 ### Spy on Your R Session
 
@@ -8,7 +11,13 @@ A simple package for tidy logging of everything you type into the R console.
 
 ## Installation
 
-You can install matahari from github with:
+You can install matahari from CRAN with:
+
+```R
+install.packages("matahari")
+```
+
+Or from GitHub with:
 
 ```R
 # install.packages("devtools")
