@@ -190,7 +190,7 @@ dance_report <- function(...) {
 #' @param code A string or the path to a file containing R code.
 #' @param evaluate Logical, indicating whether to evaluate the code, default is `TRUE`
 #' @importFrom readr read_file
-#' @importFrom rlang is_scalar_character abort parse_exprs .data
+#' @importFrom rlang is_scalar_character abort parse_exprs .data warn
 #' @importFrom tibble tibble as_tibble add_column
 #' @importFrom purrr map safely quietly transpose "%>%"
 #' @export
@@ -198,11 +198,15 @@ dance_report <- function(...) {
 #' code_file <- system.file("test", "sample_code.R", package = "matahari")
 #' dance_recital(code_file)
 dance_recital <- function(code, evaluate = TRUE) {
-  if (file.exists(code)) {
+  file_exists <- file.exists(code)
+
+  if (file_exists) {
     code <- read_file(code)
+  } else if (grepl("\\.[R|r]$", code)) {
+    warn(paste("R code file", code, "does not exist."))
   }
 
-  if(!is_scalar_character(code)) {
+  if (!is_scalar_character(code)) {
     abort("`code` must be a file or a string containing R code")
   }
 
