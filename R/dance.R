@@ -121,7 +121,7 @@ dance_remove <- function() {
   invisible(is.null(result))
 }
 
-#' Get the log as a data frame
+#' Get the log as a tibble
 #'
 #' @export
 #' @examples
@@ -133,7 +133,7 @@ dance_remove <- function() {
 #' dance_stop()
 #' dance_tbl()
 #' }
-#' @return Either a data frame containing your logged history or \code{NULL}
+#' @return Either a [tibble::tibble()] containing your logged history or \code{NULL}.
 #' if there is no log.
 dance_tbl <- function() {
   if (exists(".dance", envir = env)) {
