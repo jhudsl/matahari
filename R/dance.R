@@ -41,34 +41,24 @@ dance_start <- function(expr = TRUE, value = FALSE, path = FALSE, contents = FAL
       ed <- list(path = NA, contents = NA, selection = NA)
     }
 
-    if(!(".dance" %in% ls(all.names = TRUE, envir = env))) {
-      setup_tbl <- tibble(expr = list(quote(sessionInfo())),
-                          value = list(sessionInfo()),
-                          path = list(ie(path, ed$path, NA)),
-                          contents = list(ie(contents, ed$contents, NA)),
-                          selection = ie(selection, ed$selection, NA),
-                          dt = Sys.time())
-      setup_tbl <- add_row(setup_tbl,
-                           expr = list(ie(expr, expr_, NA)),
-                           value = list(ie(value, value_, NA)),
-                           path = list(ie(path, ed$path, NA)),
-                           contents = list(ie(contents, ed$contents, NA)),
-                           selection = ie(selection, ed$selection, NA),
-                           dt = Sys.time())
-      assign(".dance",
-             setup_tbl,
-             envir = env)
-    } else {
-      d <- get(".dance", envir = env)
-      assign(".dance", add_row(d,
-                               expr = list(ie(expr, expr_, NA)),
-                               value = list(ie(value, value_, NA)),
-                               path = list(ie(path, ed$path, NA)),
-                               contents = list(ie(contents, ed$contents, NA)),
-                               selection = ie(selection, ed$selection, NA),
-                               dt = Sys.time()
-      ), envir = env)
+    if(!there_is_a_dance()) {
+      choreograph_dance()
+      add_session_info(
+        path_ = ie(path, ed$path, NA),
+        contents_ = ie(contents, ed$contents, NA),
+        selection_ = ie(selection, ed$selection, NA)
+      )
     }
+
+    d <- get(".dance", envir = env)
+    assign(".dance", add_row(d,
+                             expr = list(ie(expr, expr_, NA)),
+                             value = list(ie(value, value_, NA)),
+                             path = list(ie(path, ed$path, NA)),
+                             contents = list(ie(contents, ed$contents, NA)),
+                             selection = ie(selection, ed$selection, NA),
+                             dt = Sys.time()
+    ), envir = env)
     TRUE
   }
   invisible(addTaskCallback(cb, name = "mh"))
@@ -262,16 +252,28 @@ there_is_a_dance <- function() {
   ".dance" %in% ls(all.names = TRUE, envir = env)
 }
 
-add_session_info <- function() {
+add_session_info <- function(path_ = NA, contents_ = NA, selection_ = NA) {
+  if (is.na(selection_)) {
+    selection_ <- list(NA)
+  }
+
   if (there_is_a_dance()) {
     d <- get(".dance", envir = env)
     assign(".dance", add_row(d,
                              expr = list(quote(sessionInfo())),
                              value = list(sessionInfo()),
-                             path = list(NA),
-                             contents = list(NA),
-                             selection = list(NA),
+                             path = list(path_),
+                             contents = list(contents_),
+                             selection = selection_,
                              dt = Sys.time()
     ), envir = env)
   }
+}
+
+choreograph_dance <- function() {
+  assign(".dance",
+    tibble(expr = list(), value = list(), path = list(),
+           contents = list(), selection = list(),
+           dt = structure(0, class = c("POSIXct", "POSIXt"), tzone = "")),
+  envir = env)
 }

@@ -1,7 +1,7 @@
 Package: matahari
 Type: Package
 Title: Spy on Your R Session
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: c(
     person("Sean", "Kross", email = "sean@seankross.com", role = c("aut", "cre"), comment = c(ORCID = "0000-0001-5215-0316")),
     person("Lucy", "D'Agostino McGowan", email = "lucydagostino@gmail.com", role = "aut", comment = c(ORCID = "0000-0001-7297-9359")),
