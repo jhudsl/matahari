@@ -13,7 +13,8 @@ test_that("dance_start logged expressions", {
 })
 
 env$.dance <- readRDS(system.file("test", "interactive_dance_data.rds",
-                                            package = "matahari"))
+  package = "matahari"
+))
 
 test_that("dance_tbl retrived table", {
   expect_equal(6, nrow(dance_tbl()))

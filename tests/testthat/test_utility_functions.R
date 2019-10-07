@@ -6,7 +6,8 @@ test_that("ie works logically", {
 })
 
 env$.dance <- readRDS(system.file("test", "interactive_dance_data.rds",
-                                  package = "matahari"))
+  package = "matahari"
+))
 
 report <- dance_report()
 
