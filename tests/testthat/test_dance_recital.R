@@ -1,4 +1,4 @@
-context("Test that dance_recital sanely evaluates R code")
+context("Test that dance_recital sanely evaluates R code.")
 
 code_file <- system.file("test", "sample_code.R", package = "matahari")
 
@@ -33,4 +33,8 @@ recital_string_result <- code_string %>%
 test_that("dance_recital can read a code string", {
   expect_equal(purrr::flatten(recital_string_result),
                purrr::flatten(expected_string_result))
+})
+
+test_that("dance_recital warns when string ends in .R", {
+  expect_warning(dance_recital("x.R = 2;5 * x.R"))
 })

@@ -16,6 +16,7 @@
 #' focus will be logged unless this is set to `FALSE`.
 #' @importFrom rstudioapi isAvailable getSourceEditorContext
 #' @importFrom tibble tibble add_row
+#' @importFrom rlang abort
 #' @export
 #' @examples
 #' \dontrun{
@@ -31,6 +32,11 @@
 #' }
 dance_start <- function(expr = TRUE, value = FALSE, path = FALSE, contents = FALSE,
                         selection = FALSE) {
+
+  if (there_is_a_dance()) {
+    abort("Unable to start new dance while a dance is in progress.")
+  }
+
   cb <- function(expr_, value_, ok, visible){
     editorIsOpen <- tryCatch({getSourceEditorContext();TRUE},
                              error = function(e) FALSE)
@@ -61,6 +67,7 @@ dance_start <- function(expr = TRUE, value = FALSE, path = FALSE, contents = FAL
     ), envir = env)
     TRUE
   }
+
   invisible(addTaskCallback(cb, name = "mh"))
 }
 
@@ -174,13 +181,12 @@ ie <- function(cond, t, f){
 #' dance_report()
 #' }
 dance_report <- function(...) {
-  add_session_info()
-
   ellipsis <- list(...)
 
   if(!is.null(ellipsis$input)) {
     invisible(base64_to_df(ellipsis$input))
   } else {
+    add_session_info()
     invisible(copy_base64(clip = ellipsis$clip))
   }
 }
