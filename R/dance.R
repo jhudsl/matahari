@@ -16,6 +16,7 @@
 #' focus will be logged unless this is set to `FALSE`.
 #' @importFrom rstudioapi isAvailable getSourceEditorContext
 #' @importFrom tibble tibble add_row
+#' @importFrom rlang abort
 #' @export
 #' @examples
 #' \dontrun{
@@ -31,46 +32,45 @@
 #' }
 dance_start <- function(expr = TRUE, value = FALSE, path = FALSE, contents = FALSE,
                         selection = FALSE) {
-  cb <- function(expr_, value_, ok, visible){
-    editorIsOpen <- tryCatch({getSourceEditorContext();TRUE},
-                             error = function(e) FALSE)
+  if (there_is_a_dance()) {
+    abort("Unable to start new dance while a dance is in progress.")
+  }
 
-    if(editorIsOpen && isAvailable()){
+  cb <- function(expr_, value_, ok, visible) {
+    editorIsOpen <- tryCatch({
+      getSourceEditorContext()
+      TRUE
+    },
+    error = function(e) FALSE
+    )
+
+    if (editorIsOpen && isAvailable()) {
       ed <- getSourceEditorContext()
     } else {
       ed <- list(path = NA, contents = NA, selection = NA)
     }
 
-    if(!(".dance" %in% ls(all.names = TRUE, envir = env))) {
-      setup_tbl <- tibble(expr = list(quote(sessionInfo())),
-                          value = list(sessionInfo()),
-                          path = list(ie(path, ed$path, NA)),
-                          contents = list(ie(contents, ed$contents, NA)),
-                          selection = ie(selection, ed$selection, NA),
-                          dt = Sys.time())
-      setup_tbl <- add_row(setup_tbl,
-                           expr = list(ie(expr, expr_, NA)),
-                           value = list(ie(value, value_, NA)),
-                           path = list(ie(path, ed$path, NA)),
-                           contents = list(ie(contents, ed$contents, NA)),
-                           selection = ie(selection, ed$selection, NA),
-                           dt = Sys.time())
-      assign(".dance",
-             setup_tbl,
-             envir = env)
-    } else {
-      d <- get(".dance", envir = env)
-      assign(".dance", add_row(d,
-                               expr = list(ie(expr, expr_, NA)),
-                               value = list(ie(value, value_, NA)),
-                               path = list(ie(path, ed$path, NA)),
-                               contents = list(ie(contents, ed$contents, NA)),
-                               selection = ie(selection, ed$selection, NA),
-                               dt = Sys.time()
-      ), envir = env)
+    if (!there_is_a_dance()) {
+      choreograph_dance()
+      add_session_info(
+        path_ = ie(path, ed$path, NA),
+        contents_ = ie(contents, ed$contents, NA),
+        selection_ = ie(selection, ed$selection, NA)
+      )
     }
+
+    d <- get(".dance", envir = env)
+    assign(".dance", add_row(d,
+      expr = list(ie(expr, expr_, NA)),
+      value = list(ie(value, value_, NA)),
+      path = list(ie(path, ed$path, NA)),
+      contents = list(ie(contents, ed$contents, NA)),
+      selection = ie(selection, ed$selection, NA),
+      dt = Sys.time()
+    ), envir = env)
     TRUE
   }
+
   invisible(addTaskCallback(cb, name = "mh"))
 }
 
@@ -121,7 +121,7 @@ dance_remove <- function() {
   invisible(is.null(result))
 }
 
-#' Get the log as a data frame
+#' Get the log as a tibble
 #'
 #' @export
 #' @examples
@@ -133,7 +133,7 @@ dance_remove <- function() {
 #' dance_stop()
 #' dance_tbl()
 #' }
-#' @return Either a data frame containing your logged history or \code{NULL}
+#' @return Either a [tibble::tibble()] containing your logged history or \code{NULL}.
 #' if there is no log.
 dance_tbl <- function() {
   if (exists(".dance", envir = env)) {
@@ -162,8 +162,8 @@ dance_save <- function(path) {
   write_rds(tbl, path)
 }
 
-ie <- function(cond, t, f){
-  if(cond){
+ie <- function(cond, t, f) {
+  if (cond) {
     t
   } else {
     f
@@ -184,13 +184,12 @@ ie <- function(cond, t, f){
 #' dance_report()
 #' }
 dance_report <- function(...) {
-  add_session_info()
-
   ellipsis <- list(...)
 
-  if(!is.null(ellipsis$input)) {
+  if (!is.null(ellipsis$input)) {
     invisible(base64_to_df(ellipsis$input))
   } else {
+    add_session_info()
     invisible(copy_base64(clip = ellipsis$clip))
   }
 }
@@ -200,7 +199,7 @@ dance_report <- function(...) {
 #' @param code A string or the path to a file containing R code.
 #' @param evaluate Logical, indicating whether to evaluate the code, default is `TRUE`
 #' @importFrom readr read_file
-#' @importFrom rlang is_scalar_character abort parse_exprs .data
+#' @importFrom rlang is_scalar_character abort parse_exprs .data warn
 #' @importFrom tibble tibble as_tibble add_column
 #' @importFrom purrr map safely quietly transpose "%>%"
 #' @export
@@ -208,27 +207,33 @@ dance_report <- function(...) {
 #' code_file <- system.file("test", "sample_code.R", package = "matahari")
 #' dance_recital(code_file)
 dance_recital <- function(code, evaluate = TRUE) {
-  if (file.exists(code)) {
+  file_exists <- file.exists(code)
+
+  if (file_exists) {
     code <- read_file(code)
+  } else if (grepl("\\.[R|r]$", code)) {
+    warn(paste("R code file", code, "does not exist."))
   }
 
-  if(!is_scalar_character(code)) {
+  if (!is_scalar_character(code)) {
     abort("`code` must be a file or a string containing R code")
   }
 
   if (!evaluate) {
-    return(tibble(expr = parse_exprs(code),
-                  value = list(NULL),
-                  error = list(NULL),
-                  output = list(NULL),
-                  warnings = list(NULL),
-                  message = list(NULL)))
+    return(tibble(
+      expr = parse_exprs(code),
+      value = list(NULL),
+      error = list(NULL),
+      output = list(NULL),
+      warnings = list(NULL),
+      message = list(NULL)
+    ))
   }
 
   e <- new.env()
 
   r <- parse_exprs(code) %>%
-    map(~safely(quietly(eval))(.x, envir = e)) %>%
+    map(~ safely(quietly(eval))(.x, envir = e)) %>%
     transpose() %>%
     as_tibble()
 
@@ -262,16 +267,31 @@ there_is_a_dance <- function() {
   ".dance" %in% ls(all.names = TRUE, envir = env)
 }
 
-add_session_info <- function() {
+add_session_info <- function(path_ = NA, contents_ = NA, selection_ = NA) {
+  if (is.na(selection_)) {
+    selection_ <- list(NA)
+  }
+
   if (there_is_a_dance()) {
     d <- get(".dance", envir = env)
     assign(".dance", add_row(d,
-                             expr = list(quote(sessionInfo())),
-                             value = list(sessionInfo()),
-                             path = list(NA),
-                             contents = list(NA),
-                             selection = list(NA),
-                             dt = Sys.time()
+      expr = list(quote(sessionInfo())),
+      value = list(sessionInfo()),
+      path = list(path_),
+      contents = list(contents_),
+      selection = selection_,
+      dt = Sys.time()
     ), envir = env)
   }
+}
+
+choreograph_dance <- function() {
+  assign(".dance",
+    tibble(
+      expr = list(), value = list(), path = list(),
+      contents = list(), selection = list(),
+      dt = structure(0, class = c("POSIXct", "POSIXt"), tzone = "")
+    ),
+    envir = env
+  )
 }
