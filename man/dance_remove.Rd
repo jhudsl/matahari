@@ -15,13 +15,37 @@ Remove your logging history.
 }
 \examples{
 \dontrun{
+library(knitr)
 
-dance_start()
+# Start recording
+dance_start(value = TRUE)
+
+# Execute some expressions
 "Hello!"
 4 + 4
+
+# Stop recording
 dance_stop()
-dance_tbl()
+
+# Access log of your session
+kable(dance_tbl()[3:4, 1:5])
+
+## |expr   |value  |path |contents |selection |
+## |:------|:------|:----|:--------|:---------|
+## |Hello! |Hello! |NA   |NA       |NA        |
+## |4 + 4  |8      |NA   |NA       |NA        |
+
+# Deletes the lgo of your session
 dance_remove()
-dance_tbl()
+
+# With no log, dance_tbl() returns NULL invisibly.
+withVisible(dance_tbl())
+
+## $value
+## NULL
+##
+## $visible
+## FALSE
+
 }
 }
