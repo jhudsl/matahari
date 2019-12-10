@@ -15,10 +15,17 @@ Save the log as an rds file.
 \examples{
 \dontrun{
 
-dance_start()
+# Start recording
+dance_start(value = TRUE)
+
+# Execute some expressions
 "Hello!"
 4 + 4
+
+# Stop recording
 dance_stop()
+
+# Save your log locally
 dance_save("session.rds")
 }
 }

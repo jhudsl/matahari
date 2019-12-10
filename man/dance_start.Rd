@@ -30,14 +30,19 @@ R code is executed in the R console.
 }
 \examples{
 \dontrun{
-
+# Begin recording your R session.
 dance_start()
+
+# Each of the following expressions adds a row to the tibble that tracks
+# the execution of your R code.
 "Hello!"
 4 + 4
 x <- 7
 x^2
 rm(x)
 x
+
+# This stops recording your R session.
 dance_stop()
 }
 }

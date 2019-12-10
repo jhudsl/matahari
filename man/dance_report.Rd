@@ -15,10 +15,24 @@ Copy the log to your clipboard.
 \examples{
 \dontrun{
 
-dance_start()
+# Start recording
+dance_start(value = TRUE)
+
+# Execute some expressions
 "Hello!"
 4 + 4
+
+# Stop recording
 dance_stop()
-dance_report()
+
+# Assign a base64 encoded tibble of your log to a variable
+report_code <- dance_report()
+substr(report_code, 1, 10)
+
+## "WAoAAAADAA"
+
+nchar(report_code)
+
+## 397432
 }
 }

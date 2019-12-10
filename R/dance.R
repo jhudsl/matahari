@@ -20,14 +20,19 @@
 #' @export
 #' @examples
 #' \dontrun{
-#'
+#' # Begin recording your R session.
 #' dance_start()
+#'
+#' # Each of the following expressions adds a row to the tibble that tracks
+#' # the execution of your R code.
 #' "Hello!"
 #' 4 + 4
 #' x <- 7
 #' x^2
 #' rm(x)
 #' x
+#'
+#' # This stops recording your R session.
 #' dance_stop()
 #' }
 dance_start <- function(expr = TRUE, value = FALSE, path = FALSE, contents = FALSE,
@@ -81,14 +86,15 @@ dance_start <- function(expr = TRUE, value = FALSE, path = FALSE, contents = FAL
 #' @export
 #' @examples
 #' \dontrun{
-#'
+#' # Begin recording your R session.
 #' dance_start()
-#' "Hello!"
-#' 4 + 4
+#'
+#' # Each expression adds a row to the tibble that tracks the execution of
+#' # your R code.
 #' x <- 7
-#' x^2
-#' rm(x)
-#' x
+#' x * 4
+#'
+#' # This stops recording your R session.
 #' dance_stop()
 #' }
 #' @return \code{TRUE} if logging was taking place, otherwise \code{FALSE} (invisibly).
@@ -102,14 +108,38 @@ dance_stop <- function() {
 #' @export
 #' @examples
 #' \dontrun{
+#' library(knitr)
 #'
-#' dance_start()
+#' # Start recording
+#' dance_start(value = TRUE)
+#'
+#' # Execute some expressions
 #' "Hello!"
 #' 4 + 4
+#'
+#' # Stop recording
 #' dance_stop()
-#' dance_tbl()
+#'
+#' # Access log of your session
+#' kable(dance_tbl()[3:4, 1:5])
+#'
+#' ## |expr   |value  |path |contents |selection |
+#' ## |:------|:------|:----|:--------|:---------|
+#' ## |Hello! |Hello! |NA   |NA       |NA        |
+#' ## |4 + 4  |8      |NA   |NA       |NA        |
+#'
+#' # Deletes the lgo of your session
 #' dance_remove()
-#' dance_tbl()
+#'
+#' # With no log, dance_tbl() returns NULL invisibly.
+#' withVisible(dance_tbl())
+#'
+#' ## $value
+#' ## NULL
+#' ##
+#' ## $visible
+#' ## FALSE
+#'
 #' }
 #' @return Either \code{TRUE} if the log was removed or \code{FALSE} if the log
 #' does not exist (invisibly).
@@ -127,11 +157,29 @@ dance_remove <- function() {
 #' @examples
 #' \dontrun{
 #'
-#' dance_start()
+#' library(knitr)
+#'
+#' # Start recording
+#' dance_start(value = TRUE)
+#'
+#' # Execute some expressions
 #' "Hello!"
 #' 4 + 4
+#'
+#' # Stop recording
 #' dance_stop()
+#'
+#' # Access log of your session
 #' dance_tbl()
+#'
+#' # Display the log nicely
+#' kable(dance_tbl()[3:4, 1:5])
+#'
+#' ## |expr   |value  |path |contents |selection |
+#' ## |:------|:------|:----|:--------|:---------|
+#' ## |Hello! |Hello! |NA   |NA       |NA        |
+#' ## |4 + 4  |8      |NA   |NA       |NA        |
+#'
 #' }
 #' @return Either a [tibble::tibble()] containing your logged history or \code{NULL}.
 #' if there is no log.
@@ -149,10 +197,17 @@ dance_tbl <- function() {
 #' @examples
 #' \dontrun{
 #'
-#' dance_start()
+#' # Start recording
+#' dance_start(value = TRUE)
+#'
+#' # Execute some expressions
 #' "Hello!"
 #' 4 + 4
+#'
+#' # Stop recording
 #' dance_stop()
+#'
+#' # Save your log locally
 #' dance_save("session.rds")
 #' }
 dance_save <- function(path) {
@@ -177,11 +232,25 @@ ie <- function(cond, t, f) {
 #' @examples
 #' \dontrun{
 #'
-#' dance_start()
+#' # Start recording
+#' dance_start(value = TRUE)
+#'
+#' # Execute some expressions
 #' "Hello!"
 #' 4 + 4
+#'
+#' # Stop recording
 #' dance_stop()
-#' dance_report()
+#'
+#' # Assign a base64 encoded tibble of your log to a variable
+#' report_code <- dance_report()
+#' substr(report_code, 1, 10)
+#'
+#' ## "WAoAAAADAA"
+#'
+#' nchar(report_code)
+#'
+#' ## 397432
 #' }
 dance_report <- function(...) {
   ellipsis <- list(...)
@@ -204,8 +273,30 @@ dance_report <- function(...) {
 #' @importFrom purrr map safely quietly transpose "%>%"
 #' @export
 #' @examples
+#'
+#' library(knitr)
+#'
+#' # Evaluate a string of R code
+#' kable(dance_recital("x <- 4; x *7"))
+#'
+#' ## |expr   |value |error |output |warnings     |messages     |
+#' ## |:------|:-----|:-----|:------|:------------|:------------|
+#' ## |x <- 4 |4     |NULL  |       |character(0) |character(0) |
+#' ## |x * 7  |28    |NULL  |       |character(0) |character(0) |
+#'
+#' # Evaluate an R script. We have provided an R script for testing purposes.
 #' code_file <- system.file("test", "sample_code.R", package = "matahari")
-#' dance_recital(code_file)
+#' kable(dance_recital(code_file)[,1:3])
+#'
+#' ## |expr                |value    |error                                    |
+#' ## |:-------------------|:--------|:----------------------------------------|
+#' ## |4 + 4               |8        |NULL                                     |
+#' ## |wow!                |wow!     |NULL                                     |
+#' ## |mean(1:10)          |5.5      |NULL                                     |
+#' ## |stop("Error!")      |NULL     |list(message = "Error!", call = .f(...)) |
+#' ## |warning("Warning!") |Warning! |NULL                                     |
+#' ## |message("Hello?")   |NULL     |NULL                                     |
+#' ## |cat("Welcome!")     |NULL     |NULL                                     |
 dance_recital <- function(code, evaluate = TRUE) {
   file_exists <- file.exists(code)
 
