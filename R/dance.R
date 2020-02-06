@@ -37,7 +37,7 @@
 #' }
 dance_start <- function(expr = TRUE, value = FALSE, path = FALSE, contents = FALSE,
                         selection = FALSE) {
-  if (there_is_a_dance()) {
+  if (dance_in_progress()) {
     abort("Unable to start new dance while a dance is in progress.")
   }
 
@@ -385,4 +385,8 @@ choreograph_dance <- function() {
     ),
     envir = env
   )
+}
+
+dance_in_progress <- function() {
+  "mh" %in% getTaskCallbackNames()
 }

@@ -1,3 +1,8 @@
+# matahari 0.1.3
+
+* Fixed an error (#20) where dance could not be restarted after it was stopped,
+thank you (@LucyMcGowan).
+
 # matahari 0.1.2
 
 * Expand examples for exported funtions
