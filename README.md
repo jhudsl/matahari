@@ -2,7 +2,7 @@
 
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/matahari)](https://cran.r-project.org/package=matahari)
-[![Travis-CI Build Status](https://travis-ci.org/jhudsl/matahari.svg?branch=master)](https://travis-ci.org/jhudsl/matahari)
+[![R-CMD-check](https://github.com/jhudsl/matahari/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/jhudsl/matahari/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 ### Spy on Your R Session

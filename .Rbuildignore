@@ -1,6 +1,8 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
-^\.travis\.yml$
 ^docs$
 ^cran-comments\.md$
 ^CRAN-RELEASE$
+^\.github$
+^_pkgdown\.yml$
+^pkgdown$
