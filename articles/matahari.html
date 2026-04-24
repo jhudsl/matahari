@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">matahari</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.3.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.3.9001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -165,13 +165,14 @@ frame, using the <code><a href="../reference/dance_recital.html">dance_recital()
 <span><span class="st">4 + 4</span></span>
 <span><span class="st">'wow!'</span></span>
 <span><span class="st">mean(1:10)</span></span>
-<span><span class="st">             "</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 3 × 6</span></span></span>
+<span><span class="st">             "</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#&gt; # A tibble: 3 × 6</span></span>
 <span><span class="co">#&gt;   expr       value     error  output    warnings  messages </span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;list&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>   </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> <span style="color: #949494;">&lt;language&gt;</span> <span style="color: #949494;">&lt;dbl [1]&gt;</span> <span style="color: #949494;">&lt;NULL&gt;</span> <span style="color: #949494;">&lt;chr [1]&gt;</span> <span style="color: #949494;">&lt;chr [0]&gt;</span> <span style="color: #949494;">&lt;chr [0]&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> <span style="color: #949494;">&lt;chr [1]&gt;</span>  <span style="color: #949494;">&lt;chr [1]&gt;</span> <span style="color: #949494;">&lt;NULL&gt;</span> <span style="color: #949494;">&lt;chr [1]&gt;</span> <span style="color: #949494;">&lt;chr [0]&gt;</span> <span style="color: #949494;">&lt;chr [0]&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> <span style="color: #949494;">&lt;language&gt;</span> <span style="color: #949494;">&lt;dbl [1]&gt;</span> <span style="color: #949494;">&lt;NULL&gt;</span> <span style="color: #949494;">&lt;chr [1]&gt;</span> <span style="color: #949494;">&lt;chr [0]&gt;</span> <span style="color: #949494;">&lt;chr [0]&gt;</span></span></span></code></pre></div>
+<span><span class="co">#&gt;   &lt;list&gt;     &lt;list&gt;    &lt;list&gt; &lt;list&gt;    &lt;list&gt;    &lt;list&gt;   </span></span>
+<span><span class="co">#&gt; 1 &lt;language&gt; &lt;dbl [1]&gt; &lt;NULL&gt; &lt;chr [1]&gt; &lt;chr [0]&gt; &lt;chr [0]&gt;</span></span>
+<span><span class="co">#&gt; 2 &lt;chr [1]&gt;  &lt;chr [1]&gt; &lt;NULL&gt; &lt;chr [1]&gt; &lt;chr [0]&gt; &lt;chr [0]&gt;</span></span>
+<span><span class="co">#&gt; 3 &lt;language&gt; &lt;dbl [1]&gt; &lt;NULL&gt; &lt;chr [1]&gt; &lt;chr [0]&gt; &lt;chr [0]&gt;</span></span></code></pre></div>
 <p>This creates the same <code>expr</code> and <code>value</code>
 columns as the <code><a href="../reference/dance_start.html">dance_start()</a></code> <code><a href="../reference/dance_stop.html">dance_stop()</a></code>
 workflow described above. In addition, it outputs any
@@ -192,10 +193,10 @@ would take a long time to run all commands.</p>
 a .R file. Instead of including the code as a character string, pass the
 <em>path</em> of the .R file. An example file is included in this
 package.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="op">(</span><span class="va">file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"test"</span>, <span class="st">"sample_code.R"</span>, package <span class="op">=</span> <span class="st">"matahari"</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "/home/runner/work/_temp/Library/matahari/test/sample_code.R"</span></span></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/dance_recital.html">dance_recital</a></span><span class="op">(</span><span class="va">file</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 7 × 6</span></span></span>
 <span><span class="co">#&gt;   expr       value     error      output    warnings  messages </span></span>

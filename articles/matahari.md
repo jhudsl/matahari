@@ -122,6 +122,9 @@ dance_recital("
 'wow!'
 mean(1:10)
              ")
+```
+
+``` r
 #> # A tibble: 3 × 6
 #>   expr       value     error  output    warnings  messages 
 #>   <list>     <list>    <list> <list>    <list>    <list>   
