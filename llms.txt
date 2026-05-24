@@ -10,12 +10,14 @@ console.
 You can install matahari from CRAN with:
 
 ``` r
+
 install.packages("matahari")
 ```
 
 Or from GitHub with:
 
 ``` r
+
 # install.packages("devtools")
 devtools::install_github("jhudsl/matahari")
 ```
@@ -23,6 +25,7 @@ devtools::install_github("jhudsl/matahari")
 ## Getting Started
 
 ``` r
+
 library(matahari)
 library(tidyverse)
 library(knitr)
@@ -68,6 +71,7 @@ dance_tbl() %>%
 ## Evaluating files
 
 ``` r
+
 library(matahari)
 library(tidyverse)
 library(knitr)

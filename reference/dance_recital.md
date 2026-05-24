@@ -21,6 +21,7 @@ dance_recital(code, evaluate = TRUE)
 ## Examples
 
 ``` r
+
 library(knitr)
 
 # Evaluate a string of R code

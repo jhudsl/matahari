@@ -5,6 +5,7 @@ Please see the matahari website for full documentation:
 - <https://jhudsl.github.io/matahari/>
 
 ``` r
+
 library(matahari)
 ```
 
@@ -28,6 +29,7 @@ and
 functions.
 
 ``` r
+
 # Start logging your R commands run in the console
 dance_start()
 
@@ -43,6 +45,7 @@ dance_tbl()
 ```
 
 ``` r
+
 #> # A tibble: 6 x 6
 #>   expr       value             path      contents  selection dt                 
 #>   <list>     <list>            <list>    <list>    <list>    <dttm>             
@@ -63,6 +66,7 @@ and then re-run
 [`dance_start()`](https://jhudatascience.org/matahari/reference/dance_start.md).
 
 ``` r
+
 dance_remove()
 ```
 
@@ -81,6 +85,7 @@ For example, the same code with `value = TRUE` results in the following
 tidy data frame.
 
 ``` r
+
 # Start logging your R commands run in the console
 dance_start(value = TRUE)
 
@@ -96,6 +101,7 @@ dance_tbl()
 ```
 
 ``` r
+
 #> # A tibble: 6 x 6
 #>   expr       value             path      contents  selection dt                 
 #>   <list>     <list>            <list>    <list>    <list>    <dttm>             
@@ -117,6 +123,7 @@ frame, using the
 function.
 
 ``` r
+
 dance_recital("
 4 + 4
 'wow!'
@@ -125,6 +132,7 @@ mean(1:10)
 ```
 
 ``` r
+
 #> # A tibble: 3 × 6
 #>   expr       value     error  output    warnings  messages 
 #>   <list>     <list>    <list> <list>    <list>    <list>   
@@ -156,11 +164,13 @@ as a character string, pass the *path* of the .R file. An example file
 is included in this package.
 
 ``` r
+
 (file <- system.file("test", "sample_code.R", package = "matahari"))
 #> [1] "/home/runner/work/_temp/Library/matahari/test/sample_code.R"
 ```
 
 ``` r
+
 dance_recital(file)
 #> # A tibble: 7 × 6
 #>   expr       value     error      output    warnings  messages 
