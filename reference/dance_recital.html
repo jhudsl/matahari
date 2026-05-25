@@ -58,17 +58,12 @@
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/" class="external-link">knitr</a></span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Evaluate a string of R code</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="fu">dance_recital</span><span class="op">(</span><span class="st">"x &lt;- 4; x *7"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |expr   |value |error |output |warnings |messages |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |:------|:-----|:-----|:------|:--------|:--------|</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |x &lt;- 4 |4     |NULL  |       |         |         |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |x * 7  |28    |NULL  |       |         |         |</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## |expr   |value |error |output |warnings     |messages     |</span></span></span>
 <span class="r-in"><span><span class="co">## |:------|:-----|:-----|:------|:------------|:------------|</span></span></span>
@@ -78,17 +73,6 @@
 <span class="r-in"><span><span class="co"># Evaluate an R script. We have provided an R script for testing purposes.</span></span></span>
 <span class="r-in"><span><span class="va">code_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"test"</span>, <span class="st">"sample_code.R"</span>, package <span class="op">=</span> <span class="st">"matahari"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="fu">dance_recital</span><span class="op">(</span><span class="va">code_file</span><span class="op">)</span><span class="op">[</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |expr                |value    |error           |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |:-------------------|:--------|:---------------|</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |4 + 4               |8        |NULL            |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |wow!                |wow!     |NULL            |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |mean(1:10)          |5.5      |NULL            |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |stop("Error!")      |NULL     |Error!, .f(...) |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |warning("Warning!") |Warning! |NULL            |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |message("Hello?")   |NULL     |NULL            |</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> |cat("Welcome!")     |NULL     |NULL            |</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">## |expr                |value    |error                                    |</span></span></span>
 <span class="r-in"><span><span class="co">## |:-------------------|:--------|:----------------------------------------|</span></span></span>
@@ -98,7 +82,8 @@
 <span class="r-in"><span><span class="co">## |stop("Error!")      |NULL     |list(message = "Error!", call = .f(...)) |</span></span></span>
 <span class="r-in"><span><span class="co">## |warning("Warning!") |Warning! |NULL                                     |</span></span></span>
 <span class="r-in"><span><span class="co">## |message("Hello?")   |NULL     |NULL                                     |</span></span></span>
-<span class="r-in"><span><span class="co">## |cat("Welcome!")     |NULL     |NULL                                     |</span></span></span>
+<span class="r-in"><span><span class="co">## |cat("Welcome!")     |NULL     |NULL   </span></span></span>
+<span class="r-in"><span><span class="op">}</span> <span class="co"># }                                  |</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

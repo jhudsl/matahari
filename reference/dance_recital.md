@@ -21,17 +21,12 @@ dance_recital(code, evaluate = TRUE)
 ## Examples
 
 ``` r
+if (FALSE) { # \dontrun{
 
 library(knitr)
 
 # Evaluate a string of R code
 kable(dance_recital("x <- 4; x *7"))
-#> 
-#> 
-#> |expr   |value |error |output |warnings |messages |
-#> |:------|:-----|:-----|:------|:--------|:--------|
-#> |x <- 4 |4     |NULL  |       |         |         |
-#> |x * 7  |28    |NULL  |       |         |         |
 
 ## |expr   |value |error |output |warnings     |messages     |
 ## |:------|:-----|:-----|:------|:------------|:------------|
@@ -41,17 +36,6 @@ kable(dance_recital("x <- 4; x *7"))
 # Evaluate an R script. We have provided an R script for testing purposes.
 code_file <- system.file("test", "sample_code.R", package = "matahari")
 kable(dance_recital(code_file)[,1:3])
-#> 
-#> 
-#> |expr                |value    |error           |
-#> |:-------------------|:--------|:---------------|
-#> |4 + 4               |8        |NULL            |
-#> |wow!                |wow!     |NULL            |
-#> |mean(1:10)          |5.5      |NULL            |
-#> |stop("Error!")      |NULL     |Error!, .f(...) |
-#> |warning("Warning!") |Warning! |NULL            |
-#> |message("Hello?")   |NULL     |NULL            |
-#> |cat("Welcome!")     |NULL     |NULL            |
 
 ## |expr                |value    |error                                    |
 ## |:-------------------|:--------|:----------------------------------------|
@@ -61,5 +45,6 @@ kable(dance_recital(code_file)[,1:3])
 ## |stop("Error!")      |NULL     |list(message = "Error!", call = .f(...)) |
 ## |warning("Warning!") |Warning! |NULL                                     |
 ## |message("Hello?")   |NULL     |NULL                                     |
-## |cat("Welcome!")     |NULL     |NULL                                     |
+## |cat("Welcome!")     |NULL     |NULL   
+} # }                                  |
 ```
