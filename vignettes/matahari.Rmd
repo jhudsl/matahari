@@ -9,7 +9,7 @@ vignette: >
 
   Please see the matahari website for full documentation:
   
-  * <https://jhudsl.github.io/matahari/>
+  * <https://jhudatascience.org/matahari/>
   
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
