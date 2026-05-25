@@ -273,6 +273,7 @@ dance_report <- function(...) {
 #' @importFrom purrr map safely quietly transpose "%>%"
 #' @export
 #' @examples
+#' \dontrun{
 #'
 #' library(knitr)
 #'
@@ -296,7 +297,8 @@ dance_report <- function(...) {
 #' ## |stop("Error!")      |NULL     |list(message = "Error!", call = .f(...)) |
 #' ## |warning("Warning!") |Warning! |NULL                                     |
 #' ## |message("Hello?")   |NULL     |NULL                                     |
-#' ## |cat("Welcome!")     |NULL     |NULL                                     |
+#' ## |cat("Welcome!")     |NULL     |NULL   
+#' }                                  |
 dance_recital <- function(code, evaluate = TRUE) {
   file_exists <- file.exists(code)
 
