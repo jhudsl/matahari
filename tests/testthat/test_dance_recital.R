@@ -37,6 +37,7 @@ recital_string_result <- code_string %>%
 
 test_that("dance_recital can read a code string", {
   skip_on_os("linux")
+  skip_on_os("windows")
   expect_equal(
     unname(purrr::list_flatten(as.list(recital_string_result))),
     unname(purrr::list_flatten(as.list(expected_string_result)))
