@@ -14,7 +14,7 @@
 ## Citation
 
 Source:
-[`DESCRIPTION`](https://github.com/jhudsl/matahari/blob/master/DESCRIPTION)
+[`DESCRIPTION`](https://github.com/jhudsl/matahari/blob/0.1.4/DESCRIPTION)
 
 Kross S, D'Agostino McGowan L (2026). *matahari: Spy on Your R Session*.
 R package version 0.1.4, <https://github.com/jhudsl/matahari>.
