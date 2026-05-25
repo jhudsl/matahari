@@ -7,16 +7,17 @@ code_file <- system.file("test", "sample_code.R", package = "matahari")
 #   dance_recital() %>%
 #   saveRDS(file = file.path("inst", "test", "code_file_data.rds"))
 
-recital_result <- code_file %>%
-  dance_recital()
-
-expected_result <- readRDS(system.file("test", "code_file_data.rds",
-  package = "matahari"
-))
-
 test_that("dance_recital can read a code file", {
   skip_on_os("linux")
   skip_on_os("windows")
+
+  recital_result <- code_file %>%
+    dance_recital()
+
+  expected_result <- readRDS(system.file("test", "code_file_data.rds",
+    package = "matahari"
+  ))
+
   expect_equal(
     unname(purrr::list_flatten(as.list(recital_result))), 
     unname(purrr::list_flatten(as.list(expected_result)))
