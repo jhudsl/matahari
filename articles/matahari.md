@@ -2,7 +2,7 @@
 
 Please see the matahari website for full documentation:
 
-- <https://jhudsl.github.io/matahari/>
+- <https://jhudatascience.org/matahari/>
 
 ``` r
 

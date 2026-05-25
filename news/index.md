@@ -1,5 +1,9 @@
 # Changelog
 
+## matahari 0.1.4
+
+- Fixed broken tests on CRAN.
+
 ## matahari 0.1.3
 
 CRAN release: 2020-02-06
@@ -12,7 +16,7 @@ CRAN release: 2020-02-06
 
 CRAN release: 2019-12-10
 
-- Expand examples for exported funtions
+- Expand examples for exported functions
 
 ## matahari 0.1.1
 
