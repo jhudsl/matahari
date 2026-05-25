@@ -39,6 +39,6 @@ kable(dance_recital(code_file)[,1:3])
 ## |stop("Error!")      |NULL     |list(message = "Error!", call = .f(...)) |
 ## |warning("Warning!") |Warning! |NULL                                     |
 ## |message("Hello?")   |NULL     |NULL                                     |
-## |cat("Welcome!")     |NULL     |NULL   
-}                                  |
+## |cat("Welcome!")     |NULL     |NULL                                     |
+}
 }
