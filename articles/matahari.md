@@ -165,21 +165,21 @@ is included in this package.
 
 ``` r
 
-(file <- system.file("test", "sample_code.R", package = "matahari"))
-#> [1] "/home/runner/work/_temp/Library/matahari/test/sample_code.R"
+file <- system.file("test", "sample_code.R", package = "matahari")
 ```
 
 ``` r
 
 dance_recital(file)
-#> # A tibble: 7 × 6
-#>   expr       value     error      output    warnings  messages 
-#>   <list>     <list>    <list>     <list>    <list>    <list>   
-#> 1 <language> <dbl [1]> <NULL>     <chr [1]> <chr [0]> <chr [0]>
-#> 2 <chr [1]>  <chr [1]> <NULL>     <chr [1]> <chr [0]> <chr [0]>
-#> 3 <language> <dbl [1]> <NULL>     <chr [1]> <chr [0]> <chr [0]>
-#> 4 <language> <NULL>    <smplErrr> <NULL>    <NULL>    <NULL>   
-#> 5 <language> <chr [1]> <NULL>     <chr [1]> <chr [1]> <chr [0]>
-#> 6 <language> <NULL>    <NULL>     <chr [1]> <chr [0]> <chr [1]>
-#> 7 <language> <NULL>    <NULL>     <chr [1]> <chr [0]> <chr [0]>
 ```
+
+    #> # A tibble: 7 × 6
+    #>   expr       value     error      output    warnings  messages 
+    #>   <list>     <list>    <list>     <list>    <list>    <list>   
+    #> 1 <language> <dbl [1]> <NULL>     <chr [1]> <chr [0]> <chr [0]>
+    #> 2 <chr [1]>  <chr [1]> <NULL>     <chr [1]> <chr [0]> <chr [0]>
+    #> 3 <language> <dbl [1]> <NULL>     <chr [1]> <chr [0]> <chr [0]>
+    #> 4 <language> <NULL>    <smplErrr> <NULL>    <NULL>    <NULL>   
+    #> 5 <language> <chr [1]> <NULL>     <chr [1]> <chr [1]> <chr [0]>
+    #> 6 <language> <NULL>    <NULL>     <chr [1]> <chr [0]> <chr [1]>
+    #> 7 <language> <NULL>    <NULL>     <chr [1]> <chr [0]> <chr [0]>
